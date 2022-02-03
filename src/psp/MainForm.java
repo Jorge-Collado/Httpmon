@@ -282,16 +282,16 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        pokemones = loadByPage(0, 17);
+        pokemones = loadByPage(0, 16);
         searchIcons();
         int counter = 0;
         for (int j = 0; j < 4; j++) {            
             int y = j * 100;
             for (int i = 0; i < 4; i++) {
                 int x = i * 100;
-                counter++;
                 JButton button = new JButton();
                 button.setIcon(icons.get(counter));
+                counter++;
                 button.setBounds(x, y, 96, 96);
                 jPanel1.add(button);
             }
