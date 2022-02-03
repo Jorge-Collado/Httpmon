@@ -28,8 +28,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import psp.models.list.PokemonList;
 
-public class Converter {
+public class ConverterList {
     // Date-time helpers
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
@@ -43,7 +44,7 @@ public class Converter {
             .withZone(ZoneOffset.UTC);
 
     public static OffsetDateTime parseDateTimeString(String str) {
-        return ZonedDateTime.from(Converter.DATE_TIME_FORMATTER.parse(str)).toOffsetDateTime();
+        return ZonedDateTime.from(ConverterList.DATE_TIME_FORMATTER.parse(str)).toOffsetDateTime();
     }
 
     private static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
@@ -56,22 +57,22 @@ public class Converter {
             .withZone(ZoneOffset.UTC);
 
     public static OffsetTime parseTimeString(String str) {
-        return ZonedDateTime.from(Converter.TIME_FORMATTER.parse(str)).toOffsetDateTime().toOffsetTime();
+        return ZonedDateTime.from(ConverterList.TIME_FORMATTER.parse(str)).toOffsetDateTime().toOffsetTime();
     }
     // Serialize/deserialize helpers
 
-    public static Object fromJsonString(String json, Object obj) throws IOException {
-        return getObjectReader(obj).readValue(json);
+    public static PokemonList fromJsonString(String json) throws IOException {
+        return getObjectReader().readValue(json);
     }
 
-    public static String toJsonString(Object obj) throws JsonProcessingException {
-        return getObjectWriter(obj).writeValueAsString(obj);
+    public static String toJsonString(PokemonList obj) throws JsonProcessingException {
+        return getObjectWriter().writeValueAsString(obj);
     }
 
     private static ObjectReader reader;
     private static ObjectWriter writer;
 
-    private static void instantiateMapper(Object o) {
+    private static void instantiateMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -84,17 +85,17 @@ public class Converter {
             }
         });
         mapper.registerModule(module);
-        reader = mapper.readerFor(o.getClass());
-        writer = mapper.writerFor(o.getClass());
+        reader = mapper.readerFor(PokemonList.class);
+        writer = mapper.writerFor(PokemonList.class);
     }
 
-    private static ObjectReader getObjectReader(Object o) {
-        if (reader == null) instantiateMapper(o);
+    private static ObjectReader getObjectReader() {
+        if (reader == null) instantiateMapper();
         return reader;
     }
 
-    private static ObjectWriter getObjectWriter(Object o) {
-        if (writer == null) instantiateMapper(o);
+    private static ObjectWriter getObjectWriter() {
+        if (writer == null) instantiateMapper();
         return writer;
     }
 }
