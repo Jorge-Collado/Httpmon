@@ -107,6 +107,7 @@ public class MainForm extends javax.swing.JFrame {
                     Pokemon p = new Pokemon();
                     Object data = Converter.fromJsonString(result, p);
                     poke = (Pokemon) data;
+                    System.out.println(poke.getMoves());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
