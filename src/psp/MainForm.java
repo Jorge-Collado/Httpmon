@@ -45,7 +45,6 @@ public class MainForm extends javax.swing.JFrame {
 
     public MainForm() {
         initComponents();
-        
     }
 
     private ArrayList<Pokemon> loadByPage(int offset, int limit) {
@@ -57,18 +56,15 @@ public class MainForm extends javax.swing.JFrame {
 
             CloseableHttpResponse response = httpClient.execute(request);
             try {
-                // Get HttpResponse Status
-                System.out.println("PokemonList: " + response.getProtocolVersion());              // HTTP/1.1
-                System.out.println("PokemonList: " + response.getStatusLine().getStatusCode());   // 200
-                System.out.println("PokemonList: " + response.getStatusLine().getReasonPhrase()); // OK
-                System.out.println("PokemonList: " + response.getStatusLine().toString());        // HTTP/1.1 200 OK
+                System.out.println("PokemonList: " + response.getProtocolVersion());             
+                System.out.println("PokemonList: " + response.getStatusLine().getStatusCode());   
+                System.out.println("PokemonList: " + response.getStatusLine().getReasonPhrase()); 
+                System.out.println("PokemonList: " + response.getStatusLine().toString());        
 
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
-                    // return it as a String
                     String result = EntityUtils.toString(entity);
                     PokemonList data = ConverterList.fromJsonString(result);
-                    //Move poke = (Move) data;
 
                     for (Result r : data.getResults()) {
                         pokemons.add(getPokemon(r.getUrl()));
@@ -95,12 +91,6 @@ public class MainForm extends javax.swing.JFrame {
 
             CloseableHttpResponse response = httpClient.execute(request);
             try {
-                // Get HttpResponse Status
-                System.out.println("Pokemon: " + response.getProtocolVersion());              // HTTP/1.1
-                System.out.println("Pokemon: " + response.getStatusLine().getStatusCode());   // 200
-                System.out.println("Pokemon: " + response.getStatusLine().getReasonPhrase()); // OK
-                System.out.println("Pokemon: " + response.getStatusLine().toString());        // HTTP/1.1 200 OK
-
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     String result = EntityUtils.toString(entity);
@@ -127,7 +117,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        myPanel1 = new MyPanel();
+        myPanel2 = new psp.components.MyPanel();
         jPanel1 = new javax.swing.JPanel();
         lblPokeName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -229,40 +219,40 @@ public class MainForm extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        javax.swing.GroupLayout myPanel1Layout = new javax.swing.GroupLayout(myPanel1);
-        myPanel1.setLayout(myPanel1Layout);
-        myPanel1Layout.setHorizontalGroup(
-            myPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout myPanel2Layout = new javax.swing.GroupLayout(myPanel2);
+        myPanel2.setLayout(myPanel2Layout);
+        myPanel2Layout.setHorizontalGroup(
+            myPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addGroup(myPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(myPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPokeName, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
-            .addGroup(myPanel1Layout.createSequentialGroup()
+            .addGroup(myPanel2Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
-        myPanel1Layout.setVerticalGroup(
-            myPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(myPanel1Layout.createSequentialGroup()
+        myPanel2Layout.setVerticalGroup(
+            myPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(myPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblPokeName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(myPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(myPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(myPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel1Layout.createSequentialGroup()
+                .addGroup(myPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(87, 87, 87))))
         );
@@ -271,11 +261,11 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(myPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(myPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(myPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(myPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -384,6 +374,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblPokeName;
-    private MyPanel myPanel1;
+    private psp.components.MyPanel myPanel2;
     // End of variables declaration//GEN-END:variables
 }
