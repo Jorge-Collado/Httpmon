@@ -1,7 +1,10 @@
 package psp;
 
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -17,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
+import javax.swing.plaf.basic.BasicBorders;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,6 +35,7 @@ import psp.controllers.ConverterList;
 import psp.models.list.PokemonList;
 import psp.models.list.Result;
 import psp.models.pokemon.Pokemon;
+import psp.models.pokemon.PokemonType;
 
 /**
  * @author Georgeus
@@ -74,7 +80,7 @@ public class MainForm extends javax.swing.JFrame {
         tiposMap.put("fairy", "src/psp/assets/tipos/hada.png");
         tiposMap.put("ground", "src/psp/assets/tipos/tierra.png");
     }
-    
+
     private void loadByPage(int offset, int limit) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -160,6 +166,7 @@ public class MainForm extends javax.swing.JFrame {
         paneDescription = new javax.swing.JPanel();
         lblPokedexName = new javax.swing.JLabel();
         lblPokedexImage = new javax.swing.JLabel();
+        paneTypes = new javax.swing.JPanel();
         btnNextPage = new javax.swing.JButton();
         btnPreviousPage = new javax.swing.JButton();
 
@@ -177,7 +184,7 @@ public class MainForm extends javax.swing.JFrame {
         paneContentPane.setBackground(new java.awt.Color(102, 0, 204));
         paneContentPane.setPreferredSize(new java.awt.Dimension(800, 1150));
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(153, 0, 255));
         jPanel2.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
@@ -218,10 +225,10 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(12, 12, 12))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,15 +240,15 @@ public class MainForm extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(22, 22, 22)
                         .addComponent(jButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -269,13 +276,27 @@ public class MainForm extends javax.swing.JFrame {
 
         scrDescription.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        paneDescription.setBackground(new java.awt.Color(102, 102, 255));
+        paneDescription.setBackground(new java.awt.Color(153, 0, 255));
         paneDescription.setMaximumSize(new java.awt.Dimension(400, 300));
 
-        lblPokedexName.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        lblPokedexName.setFont(new java.awt.Font("ITC Eras", 0, 18)); // NOI18N
         lblPokedexName.setForeground(new java.awt.Color(255, 255, 255));
         lblPokedexName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPokedexName.setText("LUCARIO #448");
+
+        paneTypes.setBackground(new java.awt.Color(153, 0, 255));
+        paneTypes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout paneTypesLayout = new javax.swing.GroupLayout(paneTypes);
+        paneTypes.setLayout(paneTypesLayout);
+        paneTypesLayout.setHorizontalGroup(
+            paneTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        paneTypesLayout.setVerticalGroup(
+            paneTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 65, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout paneDescriptionLayout = new javax.swing.GroupLayout(paneDescription);
         paneDescription.setLayout(paneDescriptionLayout);
@@ -283,9 +304,10 @@ public class MainForm extends javax.swing.JFrame {
             paneDescriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneDescriptionLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addGroup(paneDescriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPokedexImage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPokedexName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneDescriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPokedexImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(lblPokedexName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(paneTypes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(193, 193, 193))
         );
         paneDescriptionLayout.setVerticalGroup(
@@ -295,7 +317,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(lblPokedexImage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPokedexName, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(586, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(paneTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(500, Short.MAX_VALUE))
         );
 
         scrDescription.setViewportView(paneDescription);
@@ -415,7 +439,7 @@ public class MainForm extends javax.swing.JFrame {
                         }
                     }
                 });
-                
+
                 panePokedex.add(label);
             }
         }
@@ -465,9 +489,33 @@ public class MainForm extends javax.swing.JFrame {
         JLabel label = (JLabel) evt.getSource();
         int index = Integer.parseInt(label.getText());
         Pokemon poke = pokemons.get(index);
-        lblPokedexName.setText(String.format("%s #%d", poke.getName().toUpperCase(), poke.getGameIndices().get(0).getGameIndex()));
-        
+        lblPokedexName.setText(String.format("%s #%d", poke.getName().toUpperCase(), poke.getId()));
+
         lblPokedexImage.setIcon(icons200.get(index));
+        List<PokemonType> tipos = poke.getTypes();
+        for (int i = 0; i < tipos.size(); i++) {
+            try {
+                JLabel lblType = new JLabel();
+                PokemonType type = tipos.get(i);
+                if (tipos.size() > 1) {
+                    lblType.setBounds(20 + (i * 100), 3, 64, 64);
+                } else {
+                    lblType.setBounds(70, 3, 64, 64);
+                }
+                String imagePath = tiposMap.get(type.getType().getName());
+                BufferedImage img = ImageIO.read(new File(imagePath));
+                lblType.setIcon(resizImageIcon(img, 64));
+                lblType.setBackground(Color.red);
+
+                
+                lblType.setIconTextGap(-10);
+                paneTypes.add(lblType);
+            } catch (IOException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        revalidate();
+        repaint();
     }
 
     private void teElijoATi(MouseEvent evt) {
@@ -485,6 +533,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnPokemonMouseExited(MouseEvent evt) {
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        paneTypes.removeAll();
     }
 
     private void searchIcons() {
@@ -579,6 +628,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel paneContentPane;
     private javax.swing.JPanel paneDescription;
     private javax.swing.JPanel panePokedex;
+    private javax.swing.JPanel paneTypes;
     private javax.swing.JScrollPane scrDescription;
     // End of variables declaration//GEN-END:variables
 }

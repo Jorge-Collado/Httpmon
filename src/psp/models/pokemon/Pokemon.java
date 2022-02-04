@@ -55,7 +55,7 @@ public class Pokemon {
     private List<Stat> stats;
     @lombok.Getter(onMethod_ = {@JsonProperty("types")})
     @lombok.Setter(onMethod_ = {@JsonProperty("types")})
-    private List<Type> types;
+    private List<PokemonType> types;
     @lombok.Getter(onMethod_ = {@JsonProperty("weight")})
     @lombok.Setter(onMethod_ = {@JsonProperty("weight")})
     private long weight;
