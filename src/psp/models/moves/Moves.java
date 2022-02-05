@@ -77,4 +77,11 @@ public class Moves {
     @lombok.Getter(onMethod_ = {@JsonProperty("type")})
     @lombok.Setter(onMethod_ = {@JsonProperty("type")})
     private ContestType type;
+
+    @Override
+    public String toString() {
+        return name.toUpperCase();
+    }
+    
+    
 }

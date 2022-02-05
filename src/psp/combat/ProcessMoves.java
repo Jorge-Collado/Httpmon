@@ -6,6 +6,7 @@
 package psp.combat;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -34,6 +35,8 @@ public class ProcessMoves extends Thread{
     
     private void getMoves(Pokemon poke){
         List<PokemonMove> moves = poke.getMoves();
+        Moves moveFinal = new Moves();
+        List<Moves> movimientos = new ArrayList();
         try{
             for (PokemonMove move : moves){
                 CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -44,14 +47,14 @@ public class ProcessMoves extends Thread{
                 HttpEntity entity = response.getEntity();
 
                 String result = EntityUtils.toString(entity);
-                Object data  = ConverterMoves.fromJsonString(result, move);
-                Moves moveFinal = (Moves) data;
-
-                System.out.println(moveFinal);
-                
-                ProcessMoves processMoves = new ProcessMoves(poke);
-                Thread t = new Thread(processMoves);
-                t.start();
+                Object data  = ConverterMoves.fromJsonString(result, moveFinal);
+                moveFinal = (Moves) data;
+//                System.out.println(moveFinal.getName());
+//                System.out.println(moveFinal.getType().getName());
+//                System.out.println(moveFinal.getAccuracy());
+//                System.out.println(moveFinal.getPower());
+//                System.out.println("-----------------------------------------------------------------");
+                movimientos.add(moveFinal);
             }
         }catch (IOException ioe){
             ioe.printStackTrace(); 
