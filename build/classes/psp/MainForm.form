@@ -78,15 +78,14 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtBuscador" min="-2" pref="268" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="btnBuscar" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="txtBuscador" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblError" min="-2" pref="288" max="-2" attributes="0"/>
+                          <Component id="paneDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnBuscar" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblError" min="-2" pref="288" max="-2" attributes="0"/>
-                      <Component id="paneDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="26" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,7 +104,7 @@
                       </Group>
                       <Component id="jLabel1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="panePokedex" min="-2" max="-2" attributes="0"/>
@@ -119,7 +118,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -331,7 +330,7 @@
             <Component class="javax.swing.JLabel" name="lblPokedexName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="ITC Eras" size="18" style="0"/>
+                  <Font name="Eras Bold ITC" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -375,7 +374,7 @@
         <Component class="javax.swing.JButton" name="btnNextPage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="ITC Eras" size="12" style="0"/>
+              <Font name="Eras Bold ITC" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&gt;"/>
           </Properties>
@@ -386,7 +385,7 @@
         <Component class="javax.swing.JButton" name="btnPreviousPage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="ITC Eras" size="12" style="0"/>
+              <Font name="Eras Bold ITC" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;"/>
           </Properties>
@@ -397,7 +396,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="ITC Eras" size="24" style="0"/>
+              <Font name="Eras Bold ITC" size="24" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -426,7 +425,7 @@
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="ITC Eras" size="14" style="0"/>
+              <Font name="Eras Bold ITC" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
             <Property name="opaque" type="boolean" value="false"/>
@@ -438,7 +437,7 @@
         <Component class="javax.swing.JLabel" name="lblError">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="ITC Eras" size="12" style="0"/>
+              <Font name="Eras Bold ITC" size="12" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -24,7 +24,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicBorders;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -41,7 +40,7 @@ import psp.models.pokemon.Pokemon;
 import psp.models.pokemon.PokemonType;
 
 /**
- * @author Georgeus
+ * @author Merce
  */
 public class MainForm extends javax.swing.JFrame {
 
@@ -52,15 +51,29 @@ public class MainForm extends javax.swing.JFrame {
     int actualPage = 0;
 
     public MainForm() {
+        initComponents();
+        loadUI();
+        loadTipos();
+    }
+
+    private void loadUI() {
         try {
-            initComponents();
             BufferedImage icon = ImageIO.read(new File("src/psp/assets/frameIcon.png"));
             this.setIconImage(icon);
+            
             btnBuscar.setBackground(Color.YELLOW);
             btnBuscar.setContentAreaFilled(false);
             btnBuscar.setOpaque(true);
+            
+            btnNextPage.setBackground(Color.YELLOW);
+            btnNextPage.setContentAreaFilled(false);
+            btnNextPage.setOpaque(true);
+            
+            btnPreviousPage.setBackground(Color.YELLOW);
+            btnPreviousPage.setContentAreaFilled(false);
+            btnPreviousPage.setOpaque(true);
+            
             lblError.setVisible(false);
-            loadTipos();
             BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball.png"));
             lblPokedexImage.setIcon(resizImageIcon(img, 200));
             lblPokedexName.setText("POKEMON #???");
@@ -271,7 +284,7 @@ public class MainForm extends javax.swing.JFrame {
         paneDescription.setBackground(new java.awt.Color(153, 0, 255));
         paneDescription.setMaximumSize(new java.awt.Dimension(400, 300));
 
-        lblPokedexName.setFont(new java.awt.Font("ITC Eras", 0, 18)); // NOI18N
+        lblPokedexName.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
         lblPokedexName.setForeground(new java.awt.Color(255, 255, 255));
         lblPokedexName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPokedexName.setText("LUCARIO #448");
@@ -316,7 +329,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        btnNextPage.setFont(new java.awt.Font("ITC Eras", 0, 12)); // NOI18N
+        btnNextPage.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
         btnNextPage.setText(">");
         btnNextPage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +337,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnPreviousPage.setFont(new java.awt.Font("ITC Eras", 0, 12)); // NOI18N
+        btnPreviousPage.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
         btnPreviousPage.setText("<");
         btnPreviousPage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,7 +345,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("ITC Eras", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("HTTPkmon");
@@ -347,7 +360,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnBuscar.setFont(new java.awt.Font("ITC Eras", 0, 14)); // NOI18N
+        btnBuscar.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.setOpaque(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -356,7 +369,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        lblError.setFont(new java.awt.Font("ITC Eras", 0, 12)); // NOI18N
+        lblError.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setText("No se ha encontrado el Pokémon especificado.");
 
@@ -376,12 +389,11 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContentPaneLayout.createSequentialGroup()
-                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneContentPaneLayout.setVerticalGroup(
@@ -396,7 +408,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblError))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
                         .addComponent(panePokedex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -407,7 +419,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -529,7 +541,7 @@ public class MainForm extends javax.swing.JFrame {
                 PokemonDialog pd = new PokemonDialog(this, true, p);
                 pd.setVisible(true);
                 lblError.setVisible(false);
-            }else {
+            } else {
                 lblError.setText("No se ha encontrado el Pokémon especificado.");
                 lblError.setVisible(true);
             }
@@ -557,7 +569,7 @@ public class MainForm extends javax.swing.JFrame {
                     if (entity != null) {
                         String result = EntityUtils.toString(entity);
                         Pokemon p = new Pokemon();
-                        
+
                         Object data = Converter.fromJsonString(result, p);
 
                         pokemon = (Pokemon) data;
@@ -585,7 +597,7 @@ public class MainForm extends javax.swing.JFrame {
         JLabel label = (JLabel) evt.getSource();
         int index = Integer.parseInt(label.getText());
         Pokemon poke = pokemons.get(index);
-        
+
         lblPokedexName.setText(String.format("%s #%d", poke.getName().toUpperCase(), poke.getId()));
 
         lblPokedexImage.setIcon(icons200.get(index));
