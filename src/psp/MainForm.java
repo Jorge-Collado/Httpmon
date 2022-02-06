@@ -53,10 +53,12 @@ public class MainForm extends javax.swing.JFrame {
         loadUI();
         Types t = new Types();
         tiposMap = t.getTiposMap();
+        this.setLocationRelativeTo(null);
     }
 
     private void loadUI() {
         try {
+            this.setTitle("HTTPkmon");
             BufferedImage icon = ImageIO.read(new File("src/psp/assets/frameIcon.png"));
             this.setIconImage(icon);
             
@@ -369,9 +371,9 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panePokedex, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneContentPaneLayout.createSequentialGroup()
-                        .addComponent(btnPreviousPage, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNextPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPreviousPage, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNextPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
@@ -634,8 +636,7 @@ public class MainForm extends javax.swing.JFrame {
     private void teElijoATi(MouseEvent evt) {
         if (evt.getSource() instanceof JButton) {
             JButton button = (JButton) evt.getSource();
-            TransferHandler handler = button.getTransferHandler();
-            handler.exportAsDrag(button, evt, TransferHandler.COPY);
+            pokemons.get(Integer.parseInt(button.getText()));
         }
     }
 
