@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 public class Ability {
     @lombok.Getter(onMethod_ = {@JsonProperty("ability")})
     @lombok.Setter(onMethod_ = {@JsonProperty("ability")})
-    private Species ability;
+    private PokemonSpecies ability;
     @lombok.Getter(onMethod_ = {@JsonProperty("is_hidden")})
     @lombok.Setter(onMethod_ = {@JsonProperty("is_hidden")})
     private boolean isHidden;

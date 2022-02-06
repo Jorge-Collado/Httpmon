@@ -7,7 +7,7 @@ import java.util.List;
 public class HeldItem {
     @lombok.Getter(onMethod_ = {@JsonProperty("item")})
     @lombok.Setter(onMethod_ = {@JsonProperty("item")})
-    private Species item;
+    private PokemonSpecies item;
     @lombok.Getter(onMethod_ = {@JsonProperty("version_details")})
     @lombok.Setter(onMethod_ = {@JsonProperty("version_details")})
     private List<VersionDetail> versionDetails;

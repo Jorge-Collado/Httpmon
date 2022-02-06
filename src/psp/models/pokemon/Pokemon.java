@@ -13,7 +13,7 @@ public class Pokemon {
     private long baseExperience;
     @lombok.Getter(onMethod_ = {@JsonProperty("forms")})
     @lombok.Setter(onMethod_ = {@JsonProperty("forms")})
-    private List<Species> forms;
+    private List<PokemonSpecies> forms;
     @lombok.Getter(onMethod_ = {@JsonProperty("game_indices")})
     @lombok.Setter(onMethod_ = {@JsonProperty("game_indices")})
     private List<GameIndex> gameIndices;
@@ -46,7 +46,7 @@ public class Pokemon {
     private List<Object> pastTypes;
     @lombok.Getter(onMethod_ = {@JsonProperty("species")})
     @lombok.Setter(onMethod_ = {@JsonProperty("species")})
-    private Species species;
+    private PokemonSpecies species;
     @lombok.Getter(onMethod_ = {@JsonProperty("sprites")})
     @lombok.Setter(onMethod_ = {@JsonProperty("sprites")})
     private Sprites sprites;

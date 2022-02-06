@@ -1,13 +1,13 @@
-package psp.models.pokemon;
+package psp.models.species;
 
 import com.fasterxml.jackson.annotation.*;
 
 @lombok.Data
-public class Species {
+public class Name {
+    @lombok.Getter(onMethod_ = {@JsonProperty("language")})
+    @lombok.Setter(onMethod_ = {@JsonProperty("language")})
+    private Color language;
     @lombok.Getter(onMethod_ = {@JsonProperty("name")})
     @lombok.Setter(onMethod_ = {@JsonProperty("name")})
     private String name;
-    @lombok.Getter(onMethod_ = {@JsonProperty("url")})
-    @lombok.Setter(onMethod_ = {@JsonProperty("url")})
-    private String url;
 }
