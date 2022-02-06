@@ -9,5 +9,5 @@ public class GameIndex {
     private long gameIndex;
     @lombok.Getter(onMethod_ = {@JsonProperty("version")})
     @lombok.Setter(onMethod_ = {@JsonProperty("version")})
-    private Species version;
+    private PokemonSpecies version;
 }

@@ -2,11 +2,7 @@ package psp;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,6 +17,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
@@ -31,6 +28,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import psp.combat.ChooseMoveDialog;
 import psp.components.PokemonDialog;
 import psp.controllers.Converter;
 import psp.controllers.ConverterList;
@@ -47,13 +45,14 @@ public class MainForm extends javax.swing.JFrame {
     ArrayList<ImageIcon> icons96 = new ArrayList<>();
     ArrayList<ImageIcon> icons200 = new ArrayList<>();
     ArrayList<Pokemon> pokemons = new ArrayList<>();
-    HashMap<String, String> tiposMap = new HashMap<>();
+    HashMap<String, String> tiposMap;
     int actualPage = 0;
 
     public MainForm() {
         initComponents();
         loadUI();
-        loadTipos();
+        Types t = new Types();
+        tiposMap = t.getTiposMap();
     }
 
     private void loadUI() {
@@ -81,28 +80,7 @@ public class MainForm extends javax.swing.JFrame {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private void loadTipos() {
-        tiposMap.put("normal", "src/psp/assets/tipos/normal.png");
-        tiposMap.put("fighting", "src/psp/assets/tipos/lucha.png");
-        tiposMap.put("flying", "src/psp/assets/tipos/volador.png");
-        tiposMap.put("poison", "src/psp/assets/tipos/veneno.png");
-        tiposMap.put("rock", "src/psp/assets/tipos/roca.png");
-        tiposMap.put("bug", "src/psp/assets/tipos/bicho.png");
-        tiposMap.put("ghost", "src/psp/assets/tipos/david.png");
-        tiposMap.put("steel", "src/psp/assets/tipos/acero.png");
-        tiposMap.put("fire", "src/psp/assets/tipos/fuego.png");
-        tiposMap.put("water", "src/psp/assets/tipos/agua.png");
-        tiposMap.put("grass", "src/psp/assets/tipos/planta.png");
-        tiposMap.put("electric", "src/psp/assets/tipos/electrico.png");
-        tiposMap.put("psychic", "src/psp/assets/tipos/psiquico.png");
-        tiposMap.put("ice", "src/psp/assets/tipos/hielo.png");
-        tiposMap.put("dragon", "src/psp/assets/tipos/dragon.png");
-        tiposMap.put("dark", "src/psp/assets/tipos/siniestro.png");
-        tiposMap.put("fairy", "src/psp/assets/tipos/hada.png");
-        tiposMap.put("ground", "src/psp/assets/tipos/tierra.png");
-    }
-
+    
     private void loadByPage(int offset, int limit) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -152,7 +130,6 @@ public class MainForm extends javax.swing.JFrame {
                     Pokemon p = new Pokemon();
                     Object data = Converter.fromJsonString(result, p);
                     poke = (Pokemon) data;
-                    System.out.println(poke.getMoves());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -192,6 +169,7 @@ public class MainForm extends javax.swing.JFrame {
         txtBuscador = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel9.setText("Duskull");
 
@@ -374,6 +352,13 @@ public class MainForm extends javax.swing.JFrame {
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setText("No se ha encontrado el Pokémon especificado.");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneContentPaneLayout = new javax.swing.GroupLayout(paneContentPane);
         paneContentPane.setLayout(paneContentPaneLayout);
         paneContentPaneLayout.setHorizontalGroup(
@@ -388,14 +373,20 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNextPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(paneContentPaneLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContentPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(153, 153, 153))))
         );
         paneContentPaneLayout.setVerticalGroup(
             paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,8 +409,13 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(btnPreviousPage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNextPage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneContentPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneContentPaneLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton1)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -466,14 +462,17 @@ public class MainForm extends javax.swing.JFrame {
                 label.setBounds(10 + x, y, 96, 96);
 
                 label.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
                     public void mouseEntered(java.awt.event.MouseEvent evt) {
                         btnPokemonMouseEntered(evt);
                     }
 
+                    @Override
                     public void mouseExited(java.awt.event.MouseEvent evt) {
                         btnPokemonMouseExited(evt);
                     }
 
+                    @Override
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
                         if (evt.getClickCount() == 2) {
                             showInfo(evt);
@@ -552,11 +551,16 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ChooseMoveDialog cmd = new ChooseMoveDialog();
+        cmd.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private Pokemon searchPokemon() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         Pokemon pokemon = new Pokemon();
         try {
-            HttpGet request = new HttpGet("https://pokeapi.co/api/v2/pokemon/" + txtBuscador.getText().toLowerCase());
+            HttpGet request = new HttpGet("https://pokeapi.co/api/v2/pokemon/" + txtBuscador.getText().toLowerCase().replace(' ', '-'));
 
             CloseableHttpResponse response = httpClient.execute(request);
             try {
@@ -718,6 +722,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnNextPage;
     private javax.swing.JButton btnPreviousPage;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
