@@ -12,5 +12,5 @@ public class Stat {
     private long effort;
     @lombok.Getter(onMethod_ = {@JsonProperty("stat")})
     @lombok.Setter(onMethod_ = {@JsonProperty("stat")})
-    private Species stat;
+    private PokemonSpecies stat;
 }

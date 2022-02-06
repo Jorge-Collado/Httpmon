@@ -8,8 +8,8 @@ public class VersionGroupDetail {
     private long levelLearnedAt;
     @lombok.Getter(onMethod_ = {@JsonProperty("move_learn_method")})
     @lombok.Setter(onMethod_ = {@JsonProperty("move_learn_method")})
-    private Species moveLearnMethod;
+    private PokemonSpecies moveLearnMethod;
     @lombok.Getter(onMethod_ = {@JsonProperty("version_group")})
     @lombok.Setter(onMethod_ = {@JsonProperty("version_group")})
-    private Species versionGroup;
+    private PokemonSpecies versionGroup;
 }
