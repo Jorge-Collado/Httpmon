@@ -47,6 +47,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private List<Moves> movesFifth;
     private List<Moves> movesSixth;
     private List<CombatPokemon> combatTeamPJ;
+    private List<CombatPokemon> combatTeamCOM;
 
     public void setEquipoPJ(ArrayList<Pokemon> equipoPJ) {
         this.equipoPJ = equipoPJ;
@@ -59,10 +60,10 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     /**
      * Creates new form ChooseMoveDialog
      */
-    public ChooseMoveDialog() {
+    public ChooseMoveDialog(ArrayList<Pokemon> equipoPJ) {
         initComponents();
+        this.equipoPJ = equipoPJ;
         displayPokemon(selectedPokemon);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -159,12 +160,10 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMoves(List<Moves> movimientos) {
-
         movimientos.add((Moves) cmbMove1.getSelectedItem());
         movimientos.add((Moves) cmbMove2.getSelectedItem());
         movimientos.add((Moves) cmbMove3.getSelectedItem());
         movimientos.add((Moves) cmbMove4.getSelectedItem());
-
     }
 
     private void lblNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseClicked
@@ -320,28 +319,8 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     }
 
     private void displayPokemon(int selectedPokemon) {
-        /*try {
-            //equipoPJ.get(0).getMoves().get(0).getMove().getUrl();
-            BufferedImage img = ImageIO.read(new URL(equipoPJ.get(selectedPokemon).getSprites().getFrontDefault()));
-            lblPoke.setIcon(resizImageIcon(img, 96));
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(ChooseMoveDialog.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ioe){
-            ioe.printStackTrace();
-        }*/
-
         try {
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-
-            Pokemon p = new Pokemon();
-            HttpGet request = new HttpGet("https://pokeapi.co/api/v2/pokemon/355");
-
-            CloseableHttpResponse response = httpClient.execute(request);
-            HttpEntity entity = response.getEntity();
-
-            String result = EntityUtils.toString(entity);
-            Object data = Converter.fromJsonString(result, p);
-            Pokemon poke = (Pokemon) data;
+            Pokemon poke = equipoPJ.get(selectedPokemon);
 
             BufferedImage img = ImageIO.read(new URL(poke.getSprites().getFrontDefault()));
             lblPoke.setIcon(resizImageIcon(img, 96));
@@ -359,7 +338,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private List<Moves> getMoves(Pokemon poke) {
         List<PokemonMove> moves = poke.getMoves();
         Moves moveFinal = new Moves();
-        List<Moves> movimientos = new ArrayList();
+        List<Moves> movimientos = new ArrayList<Moves>();
         try {
             for (PokemonMove move : moves) {
                 CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -407,12 +386,17 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     }
 
     public void crearComboBox(List<Moves> movimientos) {
+        DefaultComboBoxModel<Moves> model = new DefaultComboBoxModel();
+        
         for (Moves m : movimientos) {
-            cmbMove1.addItem(m);
-            cmbMove2.addItem(m);
-            cmbMove3.addItem(m);
-            cmbMove4.addItem(m);
+            model.addElement(m);
         }
+            cmbMove1.setModel(model);
+            cmbMove2.setModel(model);
+            cmbMove3.setModel(model);
+            cmbMove4.setModel(model);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -443,11 +427,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ChooseMoveDialog().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

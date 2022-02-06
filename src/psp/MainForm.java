@@ -47,6 +47,7 @@ public class MainForm extends javax.swing.JFrame {
     ArrayList<Pokemon> pokemons = new ArrayList<>();
     HashMap<String, String> tiposMap;
     int actualPage = 0;
+    ArrayList<Pokemon> equipoPJ;
 
     public MainForm() {
         initComponents();
@@ -170,6 +171,7 @@ public class MainForm extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        lblTeamSize = new javax.swing.JLabel();
 
         jLabel9.setText("Duskull");
 
@@ -359,6 +361,8 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        lblTeamSize.setText("Ya tienes 6 pokemon bobin");
+
         javax.swing.GroupLayout paneContentPaneLayout = new javax.swing.GroupLayout(paneContentPane);
         paneContentPane.setLayout(paneContentPaneLayout);
         paneContentPaneLayout.setHorizontalGroup(
@@ -386,7 +390,11 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContentPaneLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addGap(153, 153, 153))))
+                        .addGap(167, 167, 167))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContentPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTeamSize, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         paneContentPaneLayout.setVerticalGroup(
             paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +408,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblError))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
                         .addComponent(panePokedex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,14 +417,14 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(btnPreviousPage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNextPage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(paneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(paneContentPaneLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton1)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                        .addComponent(lblTeamSize)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -439,6 +447,8 @@ public class MainForm extends javax.swing.JFrame {
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         loadPokemons(0, 16);
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        lblTeamSize.setVisible(false);
+        equipoPJ = new ArrayList<>();
     }//GEN-LAST:event_formWindowOpened
 
     private void loadPokemons(int offset, int limit) {
@@ -552,7 +562,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ChooseMoveDialog cmd = new ChooseMoveDialog();
+        ChooseMoveDialog cmd = new ChooseMoveDialog(equipoPJ);
+        //cmd.setEquipoPJ(equipoPJ);
         cmd.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -632,10 +643,15 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void teElijoATi(MouseEvent evt) {
-        if (evt.getSource() instanceof JButton) {
-            JButton button = (JButton) evt.getSource();
-            TransferHandler handler = button.getTransferHandler();
-            handler.exportAsDrag(button, evt, TransferHandler.COPY);
+        if (evt.getSource() instanceof JLabel) {
+            JLabel label = (JLabel) evt.getSource();
+            if (equipoPJ.size() < 6){
+                equipoPJ.add(pokemons.get(Integer.parseInt(label.getText())));
+                System.out.println(equipoPJ.size());
+            }
+
+            else
+                lblTeamSize.setVisible(true);
         }
     }
 
@@ -736,6 +752,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblPokeBox6;
     private javax.swing.JLabel lblPokedexImage;
     private javax.swing.JLabel lblPokedexName;
+    private javax.swing.JLabel lblTeamSize;
     private javax.swing.JPanel paneContentPane;
     private javax.swing.JPanel paneDescription;
     private javax.swing.JPanel panePokedex;
