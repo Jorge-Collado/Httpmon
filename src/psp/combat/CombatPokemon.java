@@ -4,7 +4,9 @@
  */
 package psp.combat;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
+import javax.swing.ImageIcon;
 import psp.models.moves.Moves;
 import psp.models.pokemon.Stat;
 
@@ -18,19 +20,23 @@ public class CombatPokemon {
     private String tipo1;
     private String tipo2;
     private List<Moves> moves;
-    private int hp;
+    private int maxHp;
+    private int actualHp;
     private int atk;
     private int def;
     private int spAtk;
     private int spDef;
     private int spd;
+    private BufferedImage frontsprite;
+    private BufferedImage backsprite;
+    private boolean fainted = false;
 
-    public CombatPokemon(String nombre, String tipo1, String tipo2, List<Moves> moves, int hp, int atk, int def, int spAtk, int spDef, int spd) {
+    public CombatPokemon(String nombre, String tipo1, String tipo2, List<Moves> moves, int maxHp, int atk, int def, int spAtk, int spDef, int spd) {
         this.nombre = nombre;
         this.tipo1 = tipo1;
         this.tipo2 = tipo2;
         this.moves = moves;
-        this.hp = hp;
+        this.maxHp = maxHp;
         this.atk = atk;
         this.def = def;
         this.spAtk = spAtk;
@@ -42,11 +48,11 @@ public class CombatPokemon {
 
     }
 
-    public CombatPokemon(String nombre, String tipo1, List<Moves> moves, int hp, int atk, int def, int spAtk, int spDef, int spd) {
+    public CombatPokemon(String nombre, String tipo1, List<Moves> moves, int maxHp, int atk, int def, int spAtk, int spDef, int spd) {
         this.nombre = nombre;
         this.tipo1 = tipo1;
         this.moves = moves;
-        this.hp = hp;
+        this.maxHp = maxHp;
         this.atk = atk;
         this.def = def;
         this.spAtk = spAtk;
@@ -86,13 +92,22 @@ public class CombatPokemon {
         this.moves = moves;
     }
 
-    public int getHp() {
-        return hp;
+    public int getMaxHp() {
+        return maxHp;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
+    
+    public int getActualHp() {
+        return actualHp;
+    }
+
+    public void setActualHp(int actualHp) {
+        this.actualHp = actualHp;
+    }
+
 
     public int getAtk() {
         return atk;
@@ -133,5 +148,31 @@ public class CombatPokemon {
     public void setSpd(int spd) {
         this.spd = spd;
     }
+
+    public BufferedImage getFrontSprite() {
+        return frontsprite;
+    }
+
+    public void setFrontSprite(BufferedImage frontsprite) {
+        this.frontsprite = frontsprite;
+    }
+
+    public BufferedImage getBackSprite() {
+        return backsprite;
+    }
+
+    public void setBackSprite(BufferedImage backsprite) {
+        this.backsprite = backsprite;
+    }
+
+    public boolean isFainted() {
+        return fainted;
+    }
+
+    public void setFainted(boolean fainted) {
+        this.fainted = fainted;
+    }
+    
+    
 
 }

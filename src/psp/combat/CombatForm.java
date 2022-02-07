@@ -4,7 +4,11 @@
  */
 package psp.combat;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
 import psp.models.pokemon.Pokemon;
 
 /**
@@ -13,23 +17,64 @@ import psp.models.pokemon.Pokemon;
  */
 public class CombatForm extends javax.swing.JFrame {
 
-    ArrayList<Pokemon> equipoPJ;
-    ArrayList<Pokemon> equipoCOM;
+    private List<CombatPokemon> equipoPJ;
+    private List<CombatPokemon> equipoCOM;
+    private int pokemonActual = 0;
     
-    public void setEquipoPJ(ArrayList<Pokemon> equipoPJ){
+    
+    public void setEquipoPJ(List<CombatPokemon> equipoPJ){
         this.equipoPJ = equipoPJ;
     }
     
-    public void setEquipoCOM(ArrayList<Pokemon> equipoCOM){
+    public void setEquipoCOM(List<CombatPokemon> equipoCOM){
         this.equipoCOM = equipoCOM;
     }
     /**
      * Creates new form CombatForm
      */
-    public CombatForm() {
+    public CombatForm(List<CombatPokemon> equipoPJ, List<CombatPokemon> equipoCOM) {
         initComponents();
-    }
+        this.equipoPJ = equipoPJ;
+        this.equipoCOM = equipoCOM;
+        iniciarCombate(equipoPJ, equipoCOM, pokemonActual);
+    } 
 
+    private void iniciarCombate(List<CombatPokemon> equipoPJ, List<CombatPokemon> equipoCOM, int pokemonActual){
+        lblPokemonAliado.setIcon(resizeImageIcon(equipoPJ.get(pokemonActual).getBackSprite(), 96));
+        lblPokemonRival.setIcon(resizeImageIcon(equipoCOM.get(pokemonActual).getFrontSprite(), 96));
+        btnMove1.setText(equipoPJ.get(pokemonActual).getMoves().get(0).getName());
+        btnMove2.setText(equipoPJ.get(pokemonActual).getMoves().get(1).getName());
+        btnMove3.setText(equipoPJ.get(pokemonActual).getMoves().get(2).getName());
+        btnMove4.setText(equipoPJ.get(pokemonActual).getMoves().get(3).getName());
+        lblPokemon1.setIcon(resizeImageIcon(equipoPJ.get(0).getFrontSprite(), 64));
+        lblPokemon2.setIcon(resizeImageIcon(equipoPJ.get(1).getFrontSprite(), 64));
+        lblPokemon3.setIcon(resizeImageIcon(equipoPJ.get(2).getFrontSprite(), 64));
+        lblPokemon4.setIcon(resizeImageIcon(equipoPJ.get(3).getFrontSprite(), 64));
+        lblPokemon5.setIcon(resizeImageIcon(equipoPJ.get(4).getFrontSprite(), 64));
+        lblPokemon6.setIcon(resizeImageIcon(equipoPJ.get(5).getFrontSprite(), 64));
+        equipoPJ.get(pokemonActual).setActualHp(equipoPJ.get(pokemonActual).getMaxHp());
+        equipoCOM.get(pokemonActual).setActualHp(equipoCOM.get(pokemonActual).getMaxHp());
+    }
+    
+        private ImageIcon resizeImageIcon(BufferedImage originalImage, int size) {
+        int desiredHeight = 0;
+        int desiredWidth = 0;
+        float aspectRatio = (float) originalImage.getWidth() / originalImage.getHeight();
+        if (originalImage.getWidth() < originalImage.getHeight()) {
+            desiredWidth = Math.round(size * aspectRatio);
+            desiredHeight = size;
+        } else {
+            desiredHeight = Math.round(size / aspectRatio);
+            desiredWidth = size;
+        }
+
+        Image resultingImage = originalImage.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+        BufferedImage outputImage = new BufferedImage(desiredWidth, desiredHeight, BufferedImage.TYPE_INT_RGB);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+
+        ImageIcon icon = new ImageIcon(outputImage);
+        return icon;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,38 +96,16 @@ public class CombatForm extends javax.swing.JFrame {
         btnMove2 = new javax.swing.JButton();
         btnMove3 = new javax.swing.JButton();
         btnMove4 = new javax.swing.JButton();
+        lblVidaPokemonPJ = new javax.swing.JLabel();
+        lblVidaPokemonCOM = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblPokemonRival.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\front_duskull.png")); // NOI18N
-
-        lblPokemonAliado.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\front_duskull.png")); // NOI18N
-
-        lblPokemon4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon4.setText("jLabel1");
-
-        lblPokemon1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon1.setText("jLabel1");
-
-        lblPokemon2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon2.setText("jLabel1");
-
-        lblPokemon6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon6.setText("jLabel1");
-
-        lblPokemon3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon3.setText("jLabel1");
-
-        lblPokemon5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Georgeus\\Documents\\NetBeansProjects\\Httpmon\\assets\\pokeball.jpg")); // NOI18N
-        lblPokemon5.setText("jLabel1");
-
-        btnMove1.setText("jButton1");
-
-        btnMove2.setText("jButton2");
-
-        btnMove3.setText("jButton3");
-
-        btnMove4.setText("jButton4");
+        btnMove1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,11 +113,15 @@ public class CombatForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblVidaPokemonCOM, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblPokemonRival, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
             .addGroup(layout.createSequentialGroup()
                 .addGap(229, 229, 229)
                 .addComponent(lblPokemonAliado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVidaPokemonPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -123,10 +150,18 @@ public class CombatForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(lblPokemonRival, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(lblPokemonAliado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblVidaPokemonCOM, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPokemonRival, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(lblPokemonAliado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblVidaPokemonPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -154,6 +189,10 @@ public class CombatForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove1ActionPerformed
+        
+    }//GEN-LAST:event_btnMove1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,11 +222,7 @@ public class CombatForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CombatForm().setVisible(true);
-            }
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -203,5 +238,7 @@ public class CombatForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblPokemon6;
     private javax.swing.JLabel lblPokemonAliado;
     private javax.swing.JLabel lblPokemonRival;
+    private javax.swing.JLabel lblVidaPokemonCOM;
+    private javax.swing.JLabel lblVidaPokemonPJ;
     // End of variables declaration//GEN-END:variables
 }
