@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/models/pokemon/PokemonMove.java</file>
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/MainForm.java</file>
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/combat/ChooseMoveDialog.java</file>
@@ -14,6 +15,10 @@
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/models/moves/Moves.java</file>
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/controllers/Converter.java</file>
             <file>file:/C:/Users/Georgeus/Documents/NetBeansProjects/Httpmon/src/psp/models/pokemon/PokemonType.java</file>
+=======
+            <file>file:/D:/1.Clase/PSP/Httpmon/src/psp/components/PokemonDialog.java</file>
+            <file>file:/D:/1.Clase/PSP/Httpmon/src/psp/MainForm.java</file>
+>>>>>>> 685d773b4b42b144c6b93740eeae0cfad044cb6d
         </group>
     </open-files>
 </project-private>

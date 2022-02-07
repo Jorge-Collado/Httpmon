@@ -1,8 +1,10 @@
 package psp.components;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.apache.http.HttpEntity;
@@ -46,10 +47,13 @@ public class PokemonDialog extends javax.swing.JDialog {
     EvolutionChain evolution;
     HashMap<String, String> tiposMap;
     ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+    MainForm mainForm;
+    ImageIcon icono;
 
     public PokemonDialog(java.awt.Frame parent, boolean modal, Pokemon pokemon) {
         super(parent, modal);
         initComponents();
+        this.mainForm = (MainForm) this.getParent();
         Types t = new Types();
         tiposMap = t.getTiposMap();
         this.pokemon = pokemon;
@@ -62,8 +66,8 @@ public class PokemonDialog extends javax.swing.JDialog {
         loadData();
         loadFirstChain();
         loadChain(evolution.getChain().getEvolvesTo());
-        System.out.println(evolution.getChain());
         addChain();
+        this.setLocationRelativeTo(null);
     }
 
     private void loadFirstChain() {
@@ -97,26 +101,28 @@ public class PokemonDialog extends javax.swing.JDialog {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         if (cadena.size() != 0) {
             try {
-                HttpGet request = new HttpGet("https://pokeapi.co/api/v2/pokemon/" + cadena.get(0).getSpecies().getName());
-                CloseableHttpResponse response = httpClient.execute(request);
-                try {
-                    HttpEntity entity = response.getEntity();
-                    if (entity != null) {
-                        Pokemon p = new Pokemon();
-                        String result = EntityUtils.toString(entity);
-                        Object data = Converter.fromJsonString(result, p);
-                        p = (Pokemon) data;
-                        pokemons.add(p);
-                        if (cadena.get(0).getEvolvesTo().size() > 0) {
-                            loadChain(cadena.get(0).getEvolvesTo());
+                for (int i = 0; i < cadena.size(); i++) {
+                    HttpGet request = new HttpGet("https://pokeapi.co/api/v2/pokemon/" + cadena.get(i).getSpecies().getName());
+                    CloseableHttpResponse response = httpClient.execute(request);
+                    try {
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            Pokemon p = new Pokemon();
+                            String result = EntityUtils.toString(entity);
+                            Object data = Converter.fromJsonString(result, p);
+                            p = (Pokemon) data;
+                            pokemons.add(p);
+                            if (cadena.get(i).getEvolvesTo().size() > 0) {
+                                loadChain(cadena.get(i).getEvolvesTo());
+                            }
                         }
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } finally {
+                        response.close();
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    response.close();
                 }
 
             } catch (IOException ex) {
@@ -126,20 +132,61 @@ public class PokemonDialog extends javax.swing.JDialog {
     }
 
     private void addChain() {
+        paneChain.removeAll();
         for (int i = 0; i < pokemons.size(); i++) {
             Pokemon p = pokemons.get(i);
             try {
                 JLabel lblPoke = new JLabel();
                 BufferedImage img = ImageIO.read(new URL(p.getSprites().getFrontDefault()));
-                lblPoke.setBounds(20 + (i * 100), 0, 96, 96);
+                lblPoke.setBounds(i * 100, 0, 96, 96);
                 lblPoke.setIcon(resizImageIcon(img, 96));
+                lblPoke.setText(String.valueOf(i));
+                lblPoke.setIconTextGap(-10);
                 paneChain.add(lblPoke);
+                scrChain.setBounds(paneChain.getBounds());
+
+                lblPoke.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        if (evt.getClickCount() == 2) {
+                            showInfo(evt);
+                        }
+                    }
+
+                    @Override
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        btnPokemonMouseEntered(evt);
+                    }
+
+                    @Override
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        btnPokemonMouseExited(evt);
+                    }
+                });
             } catch (MalformedURLException ex) {
                 Logger.getLogger(PokemonDialog.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PokemonDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void btnPokemonMouseEntered(MouseEvent evt) {
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    private void btnPokemonMouseExited(MouseEvent evt) {
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    private void showInfo(MouseEvent evt) {
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        JLabel label = (JLabel) evt.getSource();
+        int index = Integer.parseInt(label.getText());
+        Pokemon poke = pokemons.get(index);
+        PokemonDialog pd = new PokemonDialog(mainForm, true, poke);
+        this.dispose();
+        pd.setVisible(true);
     }
 
     private void loadData() {
@@ -193,11 +240,18 @@ public class PokemonDialog extends javax.swing.JDialog {
 
     private void loadUI() {
         try {
+            lblError.setVisible(false);
             this.setTitle(pokemon.getName().toUpperCase());
+
             BufferedImage img = ImageIO.read(new URL(pokemon.getSprites().getFrontDefault()));
             this.setIconImage(img);
+            icono = resizImageIcon(img, 96);
             lblImage.setIcon(resizImageIcon(img, 200));
+
             lblName.setText(String.format("%s #%d", pokemon.getName().toUpperCase(), pokemon.getId()));
+            btnAddEquipo.setBackground(Color.YELLOW);
+            btnAddEquipo.setContentAreaFilled(false);
+            btnAddEquipo.setOpaque(true);
         } catch (MalformedURLException ex) {
             Logger.getLogger(PokemonDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -295,23 +349,38 @@ public class PokemonDialog extends javax.swing.JDialog {
         lblGen = new javax.swing.JLabel();
         lblHembra = new javax.swing.JLabel();
         lblMacho = new javax.swing.JLabel();
+        scrChain = new javax.swing.JScrollPane();
         paneChain = new javax.swing.JPanel();
+        btnAddEquipo = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(102, 0, 204));
+
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        lblName.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblName.setText("Pokémon #???");
 
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Información:");
 
         txtInfo.setEditable(false);
+        txtInfo.setBackground(new java.awt.Color(153, 0, 255));
         txtInfo.setColumns(20);
+        txtInfo.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        txtInfo.setForeground(new java.awt.Color(255, 255, 255));
         txtInfo.setLineWrap(true);
         txtInfo.setRows(5);
         txtInfo.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtInfo);
+
+        paneTypes.setBackground(new java.awt.Color(153, 0, 255));
+        paneTypes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout paneTypesLayout = new javax.swing.GroupLayout(paneTypes);
         paneTypes.setLayout(paneTypesLayout);
@@ -321,65 +390,111 @@ public class PokemonDialog extends javax.swing.JDialog {
         );
         paneTypesLayout.setVerticalGroup(
             paneTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 65, Short.MAX_VALUE)
         );
 
+        lblHuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblHuevo.setForeground(new java.awt.Color(255, 255, 255));
         lblHuevo.setText("Huevo:");
 
+        lblHapiness.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblHapiness.setForeground(new java.awt.Color(255, 255, 255));
         lblHapiness.setText("Felicidad base: ");
 
+        lblGen.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblGen.setForeground(new java.awt.Color(255, 255, 255));
         lblGen.setText("Generación");
 
+        lblHembra.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblHembra.setForeground(new java.awt.Color(255, 255, 255));
         lblHembra.setText("Hembra ratio: ");
 
+        lblMacho.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblMacho.setForeground(new java.awt.Color(255, 255, 255));
         lblMacho.setText("Macho ratio: ");
+
+        scrChain.setBackground(new java.awt.Color(0, 0, 0));
+        scrChain.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        scrChain.setForeground(new java.awt.Color(0, 0, 0));
+        scrChain.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        paneChain.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout paneChainLayout = new javax.swing.GroupLayout(paneChain);
         paneChain.setLayout(paneChainLayout);
         paneChainLayout.setHorizontalGroup(
             paneChainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 1138, Short.MAX_VALUE)
         );
         paneChainLayout.setVerticalGroup(
             paneChainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        scrChain.setViewportView(paneChain);
+
+        btnAddEquipo.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        btnAddEquipo.setText("TE ELIJO A TI!");
+        btnAddEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEquipoActionPerformed(evt);
+            }
+        });
+
+        lblError.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 255, 255));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblError.setText("Ya tienes 6 pokemons en el equipo");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblMacho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHembra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(paneTypes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHapiness, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(paneTypes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHapiness, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHembra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMacho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(paneChain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrChain, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addComponent(btnAddEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(paneTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblHuevo)
@@ -390,15 +505,14 @@ public class PokemonDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHembra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMacho)
-                        .addGap(2, 2, 2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(paneChain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                        .addComponent(lblMacho)))
+                .addGap(46, 46, 46)
+                .addComponent(scrChain, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblError)
+                .addGap(4, 4, 4)
+                .addComponent(btnAddEquipo)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -414,6 +528,16 @@ public class PokemonDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipoActionPerformed
+        ArrayList<Pokemon> equipoPJ = mainForm.getEquipoPJ();
+        if (equipoPJ.size() < 6) {
+            mainForm.teElijoATiDialog(pokemon, icono);
+            this.setVisible(false);
+        } else {
+            lblError.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAddEquipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,9 +568,11 @@ public class PokemonDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddEquipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblGen;
     private javax.swing.JLabel lblHapiness;
     private javax.swing.JLabel lblHembra;
@@ -456,6 +582,7 @@ public class PokemonDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JPanel paneChain;
     private javax.swing.JPanel paneTypes;
+    private javax.swing.JScrollPane scrChain;
     private javax.swing.JTextArea txtInfo;
     // End of variables declaration//GEN-END:variables
 }
