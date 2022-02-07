@@ -47,10 +47,13 @@ public class PokemonDialog extends javax.swing.JDialog {
     EvolutionChain evolution;
     HashMap<String, String> tiposMap;
     ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+    MainForm mainForm;
+    ImageIcon icono;
 
     public PokemonDialog(java.awt.Frame parent, boolean modal, Pokemon pokemon) {
         super(parent, modal);
         initComponents();
+        this.mainForm = (MainForm) this.getParent();
         Types t = new Types();
         tiposMap = t.getTiposMap();
         this.pokemon = pokemon;
@@ -181,7 +184,7 @@ public class PokemonDialog extends javax.swing.JDialog {
         JLabel label = (JLabel) evt.getSource();
         int index = Integer.parseInt(label.getText());
         Pokemon poke = pokemons.get(index);
-        PokemonDialog pd = new PokemonDialog((MainForm) this.getParent(), true, poke);
+        PokemonDialog pd = new PokemonDialog(mainForm, true, poke);
         this.dispose();
         pd.setVisible(true);
     }
@@ -237,10 +240,14 @@ public class PokemonDialog extends javax.swing.JDialog {
 
     private void loadUI() {
         try {
+            lblError.setVisible(false);
             this.setTitle(pokemon.getName().toUpperCase());
+
             BufferedImage img = ImageIO.read(new URL(pokemon.getSprites().getFrontDefault()));
             this.setIconImage(img);
+            icono = resizImageIcon(img, 96);
             lblImage.setIcon(resizImageIcon(img, 200));
+
             lblName.setText(String.format("%s #%d", pokemon.getName().toUpperCase(), pokemon.getId()));
             btnAddEquipo.setBackground(Color.YELLOW);
             btnAddEquipo.setContentAreaFilled(false);
@@ -345,6 +352,7 @@ public class PokemonDialog extends javax.swing.JDialog {
         scrChain = new javax.swing.JScrollPane();
         paneChain = new javax.swing.JPanel();
         btnAddEquipo = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -427,6 +435,16 @@ public class PokemonDialog extends javax.swing.JDialog {
 
         btnAddEquipo.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
         btnAddEquipo.setText("TE ELIJO A TI!");
+        btnAddEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEquipoActionPerformed(evt);
+            }
+        });
+
+        lblError.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 255, 255));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblError.setText("Ya tienes 6 pokemons en el equipo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -459,7 +477,8 @@ public class PokemonDialog extends javax.swing.JDialog {
                 .addGap(131, 131, 131)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrChain, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(btnAddEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAddEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -489,9 +508,11 @@ public class PokemonDialog extends javax.swing.JDialog {
                         .addComponent(lblMacho)))
                 .addGap(46, 46, 46)
                 .addComponent(scrChain, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblError)
+                .addGap(4, 4, 4)
                 .addComponent(btnAddEquipo)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -507,6 +528,16 @@ public class PokemonDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipoActionPerformed
+        ArrayList<Pokemon> equipoPJ = mainForm.getEquipoPJ();
+        if (equipoPJ.size() < 6) {
+            mainForm.teElijoATiDialog(pokemon, icono);
+            this.setVisible(false);
+        } else {
+            lblError.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAddEquipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -541,6 +572,7 @@ public class PokemonDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblGen;
     private javax.swing.JLabel lblHapiness;
     private javax.swing.JLabel lblHembra;
