@@ -360,7 +360,7 @@ public class MainForm extends javax.swing.JFrame {
         paneDescription.setBackground(new java.awt.Color(153, 0, 255));
         paneDescription.setMaximumSize(new java.awt.Dimension(400, 300));
 
-        lblPokedexName.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        lblPokedexName.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokedexName.setForeground(new java.awt.Color(255, 255, 255));
         lblPokedexName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPokedexName.setText("LUCARIO #448");
@@ -439,7 +439,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("HTTPkmon");
@@ -476,7 +476,7 @@ public class MainForm extends javax.swing.JFrame {
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setText("No se ha encontrado el Pokémon especificado.");
 
-        btnFight.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnFight.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnFight.setForeground(new java.awt.Color(0, 0, 0));
         btnFight.setText("A pelear!");
         buttonGroup1.add(btnFight);
@@ -497,10 +497,9 @@ public class MainForm extends javax.swing.JFrame {
         lblTeamSize.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
         lblTeamSize.setForeground(new java.awt.Color(255, 255, 255));
         lblTeamSize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTeamSize.setText("Ya tienes 6 pokemon bobin");
 
         chkTeamSelector.setBackground(new java.awt.Color(102, 0, 204));
-        chkTeamSelector.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        chkTeamSelector.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         chkTeamSelector.setForeground(new java.awt.Color(255, 255, 255));
         chkTeamSelector.setText("Modo selección de equipo.");
         chkTeamSelector.setToolTipText("Entra en modo selección para crear tu propio equipo, con solo un click!");
@@ -530,10 +529,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(paneDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paneDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTeamSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkTeamSelector)
                     .addComponent(btnFight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -551,7 +549,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblError))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
                         .addComponent(panePokedex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -570,7 +568,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(btnFight, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -710,8 +708,14 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnFightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFightActionPerformed
-        ChooseMoveDialog cmd = new ChooseMoveDialog(equipoPJ);
-        cmd.setVisible(true);
+        if (equipoPJ.size() == 6) {
+            ChooseMoveDialog cmd = new ChooseMoveDialog(equipoPJ);
+            cmd.setVisible(true);
+            lblError.setVisible(false);
+        } else {
+            lblTeamSize.setVisible(true);
+            lblTeamSize.setText("El equipo debe ser de 6");
+        }
     }//GEN-LAST:event_btnFightActionPerformed
 
     private void btnBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseEntered

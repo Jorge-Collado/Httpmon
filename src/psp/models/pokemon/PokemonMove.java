@@ -14,7 +14,7 @@ public class PokemonMove {
 
     @Override
     public String toString() {
-        return move.getName();
+        return move.getName().toUpperCase();
     }
     
 }
