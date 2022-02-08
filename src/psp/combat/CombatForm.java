@@ -82,10 +82,29 @@ public class CombatForm extends javax.swing.JFrame {
         lblPokemon6.setIcon(resizeImageIcon(equipoPJ.get(5).getFrontSprite(), 64));
         
         pokemonAliado.setActualHp(pokemonAliado.getMaxHp());
+
+        equipoPJ.get(1).setActualHp(equipoPJ.get(1).getMaxHp());
+        equipoPJ.get(2).setActualHp(equipoPJ.get(2).getMaxHp());
+        equipoPJ.get(3).setActualHp(equipoPJ.get(3).getMaxHp());
+        equipoPJ.get(4).setActualHp(equipoPJ.get(4).getMaxHp());
+        equipoPJ.get(5).setActualHp(equipoPJ.get(5).getMaxHp());
+
+        setPokemonRival(equipoCOM.get(pokemonActual));
+        lblPokemonRival.setIcon(resizeImageIcon(equipoCOM.get(pokemonActual).getFrontSprite(), 96));
         pokemonRival.setActualHp(pokemonRival.getMaxHp());
         
         lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
         lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+    }
+
+    private void cambiarPokemon(int index) {
+        setPokemonAliado(equipoPJ.get(index));
+        lblPokemonAliado.setIcon(resizeImageIcon(pokemonAliado.getBackSprite(), 96));
+        btnMove1.setText(pokemonAliado.getMoves().get(0).getName());
+        btnMove2.setText(pokemonAliado.getMoves().get(1).getName());
+        btnMove3.setText(pokemonAliado.getMoves().get(2).getName());
+        btnMove4.setText(pokemonAliado.getMoves().get(3).getName());
+        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
     }
 
     private ImageIcon resizeImageIcon(BufferedImage originalImage, int size) {
@@ -289,57 +308,85 @@ public class CombatForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMove4ActionPerformed
 
     private void lblPokemon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon1MouseClicked
-        if (equipoPJ.get(0).getActualHp() > 0)
-            cambioAliado(0, evt);
+        if (equipoPJ.get(0).getActualHp() > 0) {
+            cambiarPokemon(0);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon1MouseClicked
 
     private void lblPokemon2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon2MouseClicked
-        if (equipoPJ.get(1).getActualHp() > 0)
-            cambioAliado(1, evt);
+        if (equipoPJ.get(1).getActualHp() > 0){
+            cambiarPokemon(1);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon2MouseClicked
 
     private void lblPokemon3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon3MouseClicked
-        if (equipoPJ.get(2).getActualHp() > 0)
-            cambioAliado(2, evt);
+        if (equipoPJ.get(2).getActualHp() > 0){
+            cambiarPokemon(2);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon3MouseClicked
 
     private void lblPokemon4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon4MouseClicked
-        if (equipoPJ.get(3).getActualHp() > 0)
-            cambioAliado(3, evt);
+        if (equipoPJ.get(3).getActualHp() > 0){
+            cambiarPokemon(3);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon4MouseClicked
 
     private void lblPokemon5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon5MouseClicked
-        if (equipoPJ.get(4).getActualHp() > 0)
-            cambioAliado(4, evt);
+        if (equipoPJ.get(4).getActualHp() > 0){
+            cambiarPokemon(4);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon5MouseClicked
 
     private void lblPokemon6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon6MouseClicked
-        if (equipoPJ.get(5).getActualHp() > 0)
-            cambioAliado(5, evt);
+        if (equipoPJ.get(5).getActualHp() > 0){
+            cambiarPokemon(5);
+            btnMove1.setEnabled(true);
+            btnMove2.setEnabled(true);
+            btnMove3.setEnabled(true);
+            btnMove4.setEnabled(true);
+        }
     }//GEN-LAST:event_lblPokemon6MouseClicked
 
     private void cambioAliado(int index, MouseEvent evt) {
-        if (evt.getSource() instanceof JLabel) {
-            JLabel label = (JLabel) evt.getSource();
-            lblPokemonAliado.setIcon(resizeImageIcon(equipoPJ.get(index).getBackSprite(), 96));
-            setPokemonAliado(equipoPJ.get(index));
-            btnMove1.setText(equipoPJ.get(index).getMoves().get(0).getName());
-            btnMove2.setText(equipoPJ.get(index).getMoves().get(1).getName());
-            btnMove3.setText(equipoPJ.get(index).getMoves().get(2).getName());
-            btnMove4.setText(equipoPJ.get(index).getMoves().get(3).getName());
-        }
+        lblPokemonAliado.setIcon(resizeImageIcon(equipoPJ.get(index).getBackSprite(), 96));
+        setPokemonAliado(equipoPJ.get(index));
+        btnMove1.setText(equipoPJ.get(index).getMoves().get(0).getName());
+        btnMove2.setText(equipoPJ.get(index).getMoves().get(1).getName());
+        btnMove3.setText(equipoPJ.get(index).getMoves().get(2).getName());
+        btnMove4.setText(equipoPJ.get(index).getMoves().get(3).getName());
     }
 
     private void calcularDmgRival() {
+        
         if (pokemonAliado.getAtk() > pokemonRival.getDef()) {
-            pokemonRival.setActualHp(pokemonRival.getActualHp() - (pokemonAliado.getAtk() - pokemonRival.getDef()));
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - ((pokemonAliado.getAtk() + 20) - pokemonRival.getDef()));
             if (rivalFainted()) {
                 cambiarPokemonRival();
             } else {
                 movimientoRival();
             }
         } else {
-            pokemonRival.setActualHp(pokemonRival.getActualHp() - 1);
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - 10);
             if (rivalFainted()) {
                 cambiarPokemonRival();
             } else {
@@ -353,7 +400,7 @@ public class CombatForm extends javax.swing.JFrame {
     }
 
     private boolean rivalFainted() {
-        if (pokemonRival.getActualHp() <= 0) {
+        if (pokemonRival.getActualHp() < 1) {
             return true;
         }
 
@@ -367,6 +414,8 @@ public class CombatForm extends javax.swing.JFrame {
             lblPokemonRival.setIcon(resizeImageIcon(pokemonRival.getFrontSprite(), 96));
             pokemonRival.setActualHp(pokemonRival.getMaxHp());
             lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+        } else {
+            dispose();
         }
     }
 
@@ -389,7 +438,7 @@ public class CombatForm extends javax.swing.JFrame {
     }
 
     private boolean aliadoFainted() {
-        if (pokemonAliado.getActualHp() <= 0) {
+        if (pokemonAliado.getActualHp() < 1) {
             return true;
         }
 
