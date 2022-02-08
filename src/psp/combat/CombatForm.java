@@ -144,8 +144,10 @@ public class CombatForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(640, 310));
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 204));
+        jPanel1.setMinimumSize(new java.awt.Dimension(621, 456));
         jPanel1.setLayout(null);
 
         lblPokemonRival.setForeground(new java.awt.Color(0, 0, 0));

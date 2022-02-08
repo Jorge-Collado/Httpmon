@@ -37,6 +37,12 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private List<Moves> movesFourth;
     private List<Moves> movesFifth;
     private List<Moves> movesSixth;
+    private List<PokemonMove> provisionalMovesFirst;
+    private List<PokemonMove> provisionalmovesSecond;
+    private List<PokemonMove> provisionalmovesThird;
+    private List<PokemonMove> provisionalmovesFourth;
+    private List<PokemonMove> provisionalmovesFifth;
+    private List<PokemonMove> provisionalmovesSixth;
     private List<CombatPokemon> combatTeamPJ;
     private List<CombatPokemon> combatTeamCOM;
 
@@ -55,6 +61,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         initComponents();
         initUI();
         this.equipoPJ = equipoPJ;
+        inicializarListas();
         displayPokemon(selectedPokemon);
         this.setLocationRelativeTo(null);
     }
@@ -63,6 +70,24 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         btnHecho.setBackground(Color.YELLOW);
         btnHecho.setContentAreaFilled(false);
         btnHecho.setOpaque(true);
+    }
+
+    private void inicializarListas() {
+        provisionalMovesFirst = new ArrayList();
+        provisionalmovesSecond = new ArrayList();
+        provisionalmovesThird = new ArrayList();
+        provisionalmovesFourth = new ArrayList();
+        provisionalmovesFifth = new ArrayList();
+        provisionalmovesSixth = new ArrayList();
+
+        for (int i = 0; i < 4; i++) {
+            provisionalMovesFirst.add(equipoPJ.get(0).getMoves().get(i));
+            provisionalmovesSecond.add(equipoPJ.get(1).getMoves().get(i));
+            provisionalmovesThird.add(equipoPJ.get(2).getMoves().get(i));
+            provisionalmovesFourth.add(equipoPJ.get(3).getMoves().get(i));
+            provisionalmovesFifth.add(equipoPJ.get(4).getMoves().get(i));
+            provisionalmovesSixth.add(equipoPJ.get(5).getMoves().get(i));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -221,21 +246,19 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private List<Moves> addMoves() {
-        List<Moves> movimientos = new ArrayList();
-        Moves moveFinal = new Moves();
+    private List<PokemonMove> addMoves() {
+        List<PokemonMove> movimientos = new ArrayList();
 
         PokemonMove pk1 = (PokemonMove) cmbMove1.getSelectedItem();
         PokemonMove pk2 = (PokemonMove) cmbMove2.getSelectedItem();
         PokemonMove pk3 = (PokemonMove) cmbMove3.getSelectedItem();
         PokemonMove pk4 = (PokemonMove) cmbMove4.getSelectedItem();
 
-        List<PokemonMove> movesFinal = new ArrayList();
-        movesFinal.add(pk1);
-        movesFinal.add(pk2);
-        movesFinal.add(pk3);
-        movesFinal.add(pk4);
-
+        movimientos.add(pk1);
+        movimientos.add(pk2);
+        movimientos.add(pk3);
+        movimientos.add(pk4);
+        /*
         try {
             for (PokemonMove move : movesFinal) {
                 CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -253,44 +276,44 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
-        }
+        }*/
         return movimientos;
     }
 
     private void lblNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseClicked
         switch (selectedPokemon) {
             case 0 -> {
-                movesFirst = addMoves();
+                provisionalMovesFirst = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
             }
             case 1 -> {
                 movesSecond = new ArrayList();
-                movesSecond = addMoves();
+                provisionalmovesSecond = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
             }
             case 2 -> {
                 movesThird = new ArrayList();
-                movesThird = addMoves();
+                provisionalmovesThird = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
             }
             case 3 -> {
                 movesFourth = new ArrayList();
-                movesFourth = addMoves();
+                provisionalmovesFourth = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
             }
             case 4 -> {
                 movesFifth = new ArrayList();
-                movesFifth = addMoves();
+                provisionalmovesFifth = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
             }
             case 5 -> {
                 movesSixth = new ArrayList();
-                movesSixth = addMoves();
+                provisionalmovesSixth = addMoves();
                 selectedPokemon = 0;
                 displayPokemon(selectedPokemon);
             }
@@ -301,37 +324,37 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         switch (selectedPokemon) {
             case 0 -> {
                 movesFirst = new ArrayList();
-                movesFirst = addMoves();
+                provisionalMovesFirst = addMoves();
                 selectedPokemon = 5;
                 displayPokemon(selectedPokemon);
             }
             case 1 -> {
                 movesSecond = new ArrayList();
-                movesSecond = addMoves();
+                provisionalmovesSecond = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
             }
             case 2 -> {
                 movesThird = new ArrayList();
-                movesThird = addMoves();
+                provisionalmovesThird = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
             }
             case 3 -> {
                 movesFourth = new ArrayList();
-                movesFourth = addMoves();
+                provisionalmovesFourth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
             }
             case 4 -> {
                 movesFifth = new ArrayList();
-                movesFifth = addMoves();
+                provisionalmovesFifth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
             }
             case 5 -> {
                 movesSixth = new ArrayList();
-                movesSixth = addMoves();
+                provisionalmovesSixth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
             }
@@ -345,6 +368,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
             for (int i = 0; i < equipoPJ.size(); i++) {
                 CombatPokemon cp = new CombatPokemon();
                 cp.setNombre(equipoPJ.get(i).getName());
+                pedirMoves(i);
                 setMoves(i, cp);
                 setStats(i, cp);
                 setTypes(i, cp);
@@ -368,7 +392,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_lblNextMouseEntered
 
     private void lblNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseExited
-       this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblNextMouseExited
 
     private void lblBehindMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBehindMouseEntered
@@ -382,6 +406,166 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private void cmbMove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMove1ActionPerformed
         System.out.println("pulsao");
     }//GEN-LAST:event_cmbMove1ActionPerformed
+
+    private void pedirMoves(int i) {
+        switch (i) {
+            case 0 -> {
+                movesFirst = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalMovesFirst) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesFirst.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            case 1 -> {
+                movesSecond = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalmovesSecond) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesSecond.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            case 2 -> {
+                movesThird = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalmovesThird) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesThird.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            case 3 -> {
+                movesFourth = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalmovesFourth) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesFourth.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            case 4 -> {
+                movesFifth = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalmovesFifth) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesFifth.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            case 5 -> {
+                movesSixth = new ArrayList(); 
+                Moves moveFinal = new Moves();
+                try {
+                    for (PokemonMove move : provisionalmovesSixth) {
+                        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                        HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                        CloseableHttpResponse response = httpClient.execute(request);
+                        HttpEntity entity = response.getEntity();
+                        String result = EntityUtils.toString(entity);
+                        Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                        moveFinal = (Moves) data;
+
+                        movesSixth.add(moveFinal);
+
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+                
+            }
+        }
+    }
+
+    private void requestMoves(List<Moves> lista, List<PokemonMove> provisional) {
+        Moves moveFinal = new Moves();
+        try {
+            for (PokemonMove move : provisional) {
+                CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                CloseableHttpResponse response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+                Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                moveFinal = (Moves) data;
+                if (!moveFinal.getDamageClass().getName().equals("status")) {
+                    lista.add(moveFinal);
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
     private void setMoves(int i, CombatPokemon cp) {
         switch (i) {
