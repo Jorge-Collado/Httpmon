@@ -128,16 +128,34 @@
     <Component class="javax.swing.JLabel" name="lblPokemonAliado">
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon4">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon4MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon1">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon1MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon2">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon2MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon6">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon6MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon3">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon3MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPokemon5">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPokemon5MouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMove1">
       <Events>
@@ -145,10 +163,19 @@
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMove2">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMove2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMove3">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMove3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMove4">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMove4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblVidaPokemonPJ">
     </Component>

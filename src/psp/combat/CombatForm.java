@@ -5,10 +5,15 @@
 package psp.combat;
 
 import java.awt.Image;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import psp.models.pokemon.Pokemon;
 
 /**
@@ -20,15 +25,33 @@ public class CombatForm extends javax.swing.JFrame {
     private List<CombatPokemon> equipoPJ;
     private List<CombatPokemon> equipoCOM;
     private int pokemonActual = 0;
-    
-    
-    public void setEquipoPJ(List<CombatPokemon> equipoPJ){
+    private CombatPokemon pokemonAliado;
+    private CombatPokemon pokemonRival;
+
+    public CombatPokemon getPokemonAliado() {
+        return pokemonAliado;
+    }
+
+    public void setPokemonAliado(CombatPokemon pokemonAliado) {
+        this.pokemonAliado = pokemonAliado;
+    }
+
+    public CombatPokemon getPokemonRival() {
+        return pokemonRival;
+    }
+
+    public void setPokemonRival(CombatPokemon pokemonRival) {
+        this.pokemonRival = pokemonRival;
+    }
+
+    public void setEquipoPJ(List<CombatPokemon> equipoPJ) {
         this.equipoPJ = equipoPJ;
     }
-    
-    public void setEquipoCOM(List<CombatPokemon> equipoCOM){
+
+    public void setEquipoCOM(List<CombatPokemon> equipoCOM) {
         this.equipoCOM = equipoCOM;
     }
+
     /**
      * Creates new form CombatForm
      */
@@ -36,12 +59,14 @@ public class CombatForm extends javax.swing.JFrame {
         initComponents();
         this.equipoPJ = equipoPJ;
         this.equipoCOM = equipoCOM;
-        iniciarCombate(equipoPJ, equipoCOM, pokemonActual);
-    } 
+        iniciarCombate(pokemonActual);
+    }
 
-    private void iniciarCombate(List<CombatPokemon> equipoPJ, List<CombatPokemon> equipoCOM, int pokemonActual){
+    private void iniciarCombate(int pokemonActual) {
         lblPokemonAliado.setIcon(resizeImageIcon(equipoPJ.get(pokemonActual).getBackSprite(), 96));
         lblPokemonRival.setIcon(resizeImageIcon(equipoCOM.get(pokemonActual).getFrontSprite(), 96));
+        setPokemonAliado(equipoPJ.get(pokemonActual));
+        setPokemonRival(equipoCOM.get(pokemonActual));
         btnMove1.setText(equipoPJ.get(pokemonActual).getMoves().get(0).getName());
         btnMove2.setText(equipoPJ.get(pokemonActual).getMoves().get(1).getName());
         btnMove3.setText(equipoPJ.get(pokemonActual).getMoves().get(2).getName());
@@ -52,11 +77,13 @@ public class CombatForm extends javax.swing.JFrame {
         lblPokemon4.setIcon(resizeImageIcon(equipoPJ.get(3).getFrontSprite(), 64));
         lblPokemon5.setIcon(resizeImageIcon(equipoPJ.get(4).getFrontSprite(), 64));
         lblPokemon6.setIcon(resizeImageIcon(equipoPJ.get(5).getFrontSprite(), 64));
-        equipoPJ.get(pokemonActual).setActualHp(equipoPJ.get(pokemonActual).getMaxHp());
-        equipoCOM.get(pokemonActual).setActualHp(equipoCOM.get(pokemonActual).getMaxHp());
+        pokemonAliado.setActualHp(pokemonAliado.getMaxHp());
+        pokemonRival.setActualHp(pokemonRival.getMaxHp());
+        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
+        lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
     }
-    
-        private ImageIcon resizeImageIcon(BufferedImage originalImage, int size) {
+
+    private ImageIcon resizeImageIcon(BufferedImage originalImage, int size) {
         int desiredHeight = 0;
         int desiredWidth = 0;
         float aspectRatio = (float) originalImage.getWidth() / originalImage.getHeight();
@@ -75,6 +102,7 @@ public class CombatForm extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(outputImage);
         return icon;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,9 +129,63 @@ public class CombatForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblPokemon4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon4MouseClicked(evt);
+            }
+        });
+
+        lblPokemon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon1MouseClicked(evt);
+            }
+        });
+
+        lblPokemon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon2MouseClicked(evt);
+            }
+        });
+
+        lblPokemon6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon6MouseClicked(evt);
+            }
+        });
+
+        lblPokemon3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon3MouseClicked(evt);
+            }
+        });
+
+        lblPokemon5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon5MouseClicked(evt);
+            }
+        });
+
         btnMove1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMove1ActionPerformed(evt);
+            }
+        });
+
+        btnMove2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove2ActionPerformed(evt);
+            }
+        });
+
+        btnMove3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove3ActionPerformed(evt);
+            }
+        });
+
+        btnMove4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove4ActionPerformed(evt);
             }
         });
 
@@ -191,8 +273,141 @@ public class CombatForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove1ActionPerformed
-        
+        calcularDmgRival();
     }//GEN-LAST:event_btnMove1ActionPerformed
+
+    private void btnMove3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove3ActionPerformed
+        calcularDmgRival();
+    }//GEN-LAST:event_btnMove3ActionPerformed
+
+    private void btnMove2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove2ActionPerformed
+        calcularDmgRival();
+    }//GEN-LAST:event_btnMove2ActionPerformed
+
+    private void btnMove4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove4ActionPerformed
+        calcularDmgRival();
+    }//GEN-LAST:event_btnMove4ActionPerformed
+
+    private void lblPokemon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon1MouseClicked
+        if (equipoPJ.get(0).getActualHp() > 0)
+            cambioAliado(0, evt);
+    }//GEN-LAST:event_lblPokemon1MouseClicked
+
+    private void lblPokemon2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon2MouseClicked
+        if (equipoPJ.get(1).getActualHp() > 0)
+            cambioAliado(1, evt);
+    }//GEN-LAST:event_lblPokemon2MouseClicked
+
+    private void lblPokemon3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon3MouseClicked
+        if (equipoPJ.get(2).getActualHp() > 0)
+            cambioAliado(2, evt);
+    }//GEN-LAST:event_lblPokemon3MouseClicked
+
+    private void lblPokemon4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon4MouseClicked
+        if (equipoPJ.get(3).getActualHp() > 0)
+            cambioAliado(3, evt);
+    }//GEN-LAST:event_lblPokemon4MouseClicked
+
+    private void lblPokemon5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon5MouseClicked
+        if (equipoPJ.get(4).getActualHp() > 0)
+            cambioAliado(4, evt);
+    }//GEN-LAST:event_lblPokemon5MouseClicked
+
+    private void lblPokemon6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon6MouseClicked
+        if (equipoPJ.get(5).getActualHp() > 0)
+            cambioAliado(5, evt);
+    }//GEN-LAST:event_lblPokemon6MouseClicked
+
+    private void cambioAliado(int index, MouseEvent evt) {
+        if (evt.getSource() instanceof JLabel) {
+            JLabel label = (JLabel) evt.getSource();
+            lblPokemonAliado.setIcon(resizeImageIcon(equipoPJ.get(index).getBackSprite(), 96));
+            setPokemonAliado(equipoPJ.get(index));
+            btnMove1.setText(equipoPJ.get(index).getMoves().get(0).getName());
+            btnMove2.setText(equipoPJ.get(index).getMoves().get(1).getName());
+            btnMove3.setText(equipoPJ.get(index).getMoves().get(2).getName());
+            btnMove4.setText(equipoPJ.get(index).getMoves().get(3).getName());
+        }
+    }
+
+    private void calcularDmgRival() {
+        if (pokemonAliado.getAtk() > pokemonRival.getDef()) {
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - (pokemonAliado.getAtk() - pokemonRival.getDef()));
+            if (rivalFainted()) {
+                cambiarPokemonRival();
+            } else {
+                movimientoRival();
+            }
+        } else {
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - 1);
+            if (rivalFainted()) {
+                cambiarPokemonRival();
+            } else {
+                movimientoRival();
+            }
+        }
+
+        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
+        lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+
+    }
+
+    private boolean rivalFainted() {
+        if (pokemonRival.getActualHp() <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void cambiarPokemonRival() {
+        if (pokemonActual < equipoCOM.size()) {
+            pokemonActual += 1;
+            setPokemonRival(equipoCOM.get(pokemonActual));
+            lblPokemonRival.setIcon(resizeImageIcon(pokemonRival.getFrontSprite(), 96));
+            pokemonRival.setActualHp(pokemonRival.getMaxHp());
+            lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+        }
+    }
+
+    private void movimientoRival() {
+        if (pokemonRival.getAtk() > pokemonAliado.getDef()) {
+            pokemonAliado.setActualHp(pokemonAliado.getActualHp() - (pokemonRival.getAtk() - pokemonAliado.getDef()));
+            if (aliadoFainted()) {
+                aliadoDebilitado();
+            }
+        } else {
+            pokemonAliado.setActualHp(pokemonAliado.getActualHp() - 1);
+            if (aliadoFainted()) {
+                cambiarPokemonRival();
+            }
+        }
+
+        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
+        lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+
+    }
+
+    private boolean aliadoFainted() {
+        if (pokemonAliado.getActualHp() <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void aliadoDebilitado() {
+        try {
+            BufferedImage img = ImageIO.read(new File("src/psp/assets/lavender_ghost.png"));
+            lblPokemonAliado.setIcon(resizeImageIcon(img, 96));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        btnMove1.setEnabled(false);
+        btnMove2.setEnabled(false);
+        btnMove3.setEnabled(false);
+        btnMove4.setEnabled(false);
+    }
 
     /**
      * @param args the command line arguments
@@ -222,7 +437,6 @@ public class CombatForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

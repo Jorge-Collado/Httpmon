@@ -11,4 +11,10 @@ public class PokemonMove {
     @lombok.Getter(onMethod_ = {@JsonProperty("version_group_details")})
     @lombok.Setter(onMethod_ = {@JsonProperty("version_group_details")})
     private List<VersionGroupDetail> versionGroupDetails;
+
+    @Override
+    public String toString() {
+        return move.getName();
+    }
+    
 }
