@@ -161,11 +161,45 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
 
     private List<Moves> addMoves() {
         List<Moves> movimientos = new ArrayList();
-        movimientos.add((Moves) cmbMove1.getSelectedItem());
-        movimientos.add((Moves) cmbMove2.getSelectedItem());
-        movimientos.add((Moves) cmbMove3.getSelectedItem());
-        movimientos.add((Moves) cmbMove4.getSelectedItem());
+         Moves moveFinal = new Moves();
+//        movimientos.add((Moves) cmbMove1.getSelectedItem());
+//        movimientos.add((Moves) cmbMove2.getSelectedItem());
+//        movimientos.add((Moves) cmbMove3.getSelectedItem());
+//        movimientos.add((Moves) cmbMove4.getSelectedItem());
+//        return movimientos;
+
+        PokemonMove pk1 = (PokemonMove) cmbMove1.getSelectedItem();
+        PokemonMove pk2 = (PokemonMove) cmbMove2.getSelectedItem();
+        PokemonMove pk3 = (PokemonMove) cmbMove3.getSelectedItem();
+        PokemonMove pk4 = (PokemonMove) cmbMove4.getSelectedItem();
+        
+        List<PokemonMove> movesFinal = new ArrayList();
+        movesFinal.add(pk1);
+        movesFinal.add(pk2);
+        movesFinal.add(pk3);
+        movesFinal.add(pk4);
+        
+        try {
+            for (PokemonMove move : movesFinal) {
+                CloseableHttpClient httpClient = HttpClients.createDefault();
+
+                HttpGet request = new HttpGet(move.getMove().getUrl());
+
+                CloseableHttpResponse response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+                Object data = ConverterMoves.fromJsonString(result, moveFinal);
+                moveFinal = (Moves) data;
+                if (!moveFinal.getDamageClass().getName().equals("status")) {
+                    movimientos.add(moveFinal);
+                }
+            }
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
         return movimientos;
+        
     }
 
     private void lblNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseClicked
@@ -343,7 +377,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
             /*ProcessMoves processMoves = new ProcessMoves(poke);
             Thread t = new Thread(processMoves);
             t.start();*/
-            List<Moves> movimientos = getMoves(poke);
+            List<PokemonMove> movimientos = getMoves(poke);
             crearComboBox(movimientos);
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -351,31 +385,32 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
 
     }
 
-    private List<Moves> getMoves(Pokemon poke) {
+    private List<PokemonMove> getMoves(Pokemon poke) {
         List<PokemonMove> moves = poke.getMoves();
-        Moves moveFinal = new Moves();
-        List<Moves> movimientos = new ArrayList<Moves>();
-        try {
+//        Moves moveFinal = new Moves();
+       List<PokemonMove> movimientos = new ArrayList<PokemonMove>();
+//        try {
             for (PokemonMove move : moves) {
-                CloseableHttpClient httpClient = HttpClients.createDefault();
-
-                HttpGet request = new HttpGet(move.getMove().getUrl());
-
-                CloseableHttpResponse response = httpClient.execute(request);
-                HttpEntity entity = response.getEntity();
-                String result = EntityUtils.toString(entity);
-                Object data = ConverterMoves.fromJsonString(result, moveFinal);
-                moveFinal = (Moves) data;
-                if (!moveFinal.getDamageClass().getName().equals("status")) {
-                    movimientos.add(moveFinal);
-                }
-            }
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+//                CloseableHttpClient httpClient = HttpClients.createDefault();
+//
+//                HttpGet request = new HttpGet(move.getMove().getUrl());
+//
+//                CloseableHttpResponse response = httpClient.execute(request);
+//                HttpEntity entity = response.getEntity();
+//                String result = EntityUtils.toString(entity);
+//                Object data = ConverterMoves.fromJsonString(result, moveFinal);
+//                moveFinal = (Moves) data;
+//                if (!move.getMove()) {
+                    movimientos.add(move);
+//                }
+//            }
+//
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
         }
         return movimientos;
     }
+    
 
     private ImageIcon resizImageIcon(BufferedImage originalImage, int size) {
         int desiredHeight = 0;
@@ -397,13 +432,13 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         return icon;
     }
 
-    public void crearComboBox(List<Moves> movimientos) {
-        DefaultComboBoxModel<Moves> model1 = new DefaultComboBoxModel();
-        DefaultComboBoxModel<Moves> model2 = new DefaultComboBoxModel();
-        DefaultComboBoxModel<Moves> model3 = new DefaultComboBoxModel();
-        DefaultComboBoxModel<Moves> model4 = new DefaultComboBoxModel();
+    public void crearComboBox(List<PokemonMove> movimientos) {
+        DefaultComboBoxModel<PokemonMove> model1 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<PokemonMove> model2 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<PokemonMove> model3 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<PokemonMove> model4 = new DefaultComboBoxModel();
 
-        for (Moves m : movimientos) {
+        for (PokemonMove m : movimientos) {
             model1.addElement(m);
             model2.addElement(m);
             model3.addElement(m);
@@ -449,10 +484,10 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHecho;
-    private javax.swing.JComboBox<Moves> cmbMove1;
-    private javax.swing.JComboBox<Moves> cmbMove2;
-    private javax.swing.JComboBox<Moves> cmbMove3;
-    private javax.swing.JComboBox<Moves> cmbMove4;
+    private javax.swing.JComboBox<PokemonMove> cmbMove1;
+    private javax.swing.JComboBox<PokemonMove> cmbMove2;
+    private javax.swing.JComboBox<PokemonMove> cmbMove3;
+    private javax.swing.JComboBox<PokemonMove> cmbMove4;
     private javax.swing.JLabel lblBehind;
     private javax.swing.JLabel lblNext;
     private javax.swing.JLabel lblPoke;
