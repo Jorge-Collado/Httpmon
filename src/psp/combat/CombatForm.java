@@ -379,15 +379,16 @@ public class CombatForm extends javax.swing.JFrame {
     }
 
     private void calcularDmgRival() {
+        
         if (pokemonAliado.getAtk() > pokemonRival.getDef()) {
-            pokemonRival.setActualHp(pokemonRival.getActualHp() - (pokemonAliado.getAtk() - pokemonRival.getDef()));
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - ((pokemonAliado.getAtk() + 20) - pokemonRival.getDef()));
             if (rivalFainted()) {
                 cambiarPokemonRival();
             } else {
                 movimientoRival();
             }
         } else {
-            pokemonRival.setActualHp(pokemonRival.getActualHp() - 1);
+            pokemonRival.setActualHp(pokemonRival.getActualHp() - 10);
             if (rivalFainted()) {
                 cambiarPokemonRival();
             } else {
