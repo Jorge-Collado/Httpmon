@@ -360,12 +360,12 @@ public class PokemonDialog extends javax.swing.JDialog {
 
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        lblName.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        lblName.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblName.setText("Pokémon #???");
 
-        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Información:");
 
@@ -433,7 +433,7 @@ public class PokemonDialog extends javax.swing.JDialog {
 
         scrChain.setViewportView(paneChain);
 
-        btnAddEquipo.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        btnAddEquipo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnAddEquipo.setText("TE ELIJO A TI!");
         btnAddEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +441,7 @@ public class PokemonDialog extends javax.swing.JDialog {
             }
         });
 
-        lblError.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        lblError.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblError.setText("Ya tienes 6 pokemons en el equipo");
