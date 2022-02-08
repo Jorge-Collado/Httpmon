@@ -56,6 +56,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         initUI();
         this.equipoPJ = equipoPJ;
         displayPokemon(selectedPokemon);
+        this.setLocationRelativeTo(null);
     }
 
     private void initUI() {
@@ -134,6 +135,11 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         cmbMove1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         cmbMove1.setForeground(new java.awt.Color(0, 0, 0));
         cmbMove1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbMove1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMove1ActionPerformed(evt);
+            }
+        });
 
         cmbMove2.setBackground(new java.awt.Color(153, 0, 255));
         cmbMove2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -372,6 +378,10 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private void lblBehindMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBehindMouseExited
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblBehindMouseExited
+
+    private void cmbMove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMove1ActionPerformed
+        System.out.println("pulsao");
+    }//GEN-LAST:event_cmbMove1ActionPerformed
 
     private void setMoves(int i, CombatPokemon cp) {
         switch (i) {
