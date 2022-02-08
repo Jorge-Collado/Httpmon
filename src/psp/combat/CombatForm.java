@@ -9,12 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import psp.models.pokemon.Pokemon;
 
 /**
  *
@@ -51,15 +48,13 @@ public class CombatForm extends javax.swing.JFrame {
     public void setEquipoCOM(List<CombatPokemon> equipoCOM) {
         this.equipoCOM = equipoCOM;
     }
-
-    /**
-     * Creates new form CombatForm
-     */
+    
     public CombatForm(List<CombatPokemon> equipoPJ, List<CombatPokemon> equipoCOM) {
         initComponents();
         this.equipoPJ = equipoPJ;
         this.equipoCOM = equipoCOM;
         iniciarCombate(pokemonActual);
+        this.setLocationRelativeTo(null);
     }
 
     private void iniciarCombate(int pokemonActual) {
@@ -131,161 +126,164 @@ public class CombatForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblPokemonRival = new javax.swing.JLabel();
         lblPokemonAliado = new javax.swing.JLabel();
-        lblPokemon4 = new javax.swing.JLabel();
-        lblPokemon1 = new javax.swing.JLabel();
-        lblPokemon2 = new javax.swing.JLabel();
-        lblPokemon6 = new javax.swing.JLabel();
-        lblPokemon3 = new javax.swing.JLabel();
-        lblPokemon5 = new javax.swing.JLabel();
+        lblVidaPokemonPJ = new javax.swing.JLabel();
+        lblVidaPokemonCOM = new javax.swing.JLabel();
         btnMove1 = new javax.swing.JButton();
         btnMove2 = new javax.swing.JButton();
         btnMove3 = new javax.swing.JButton();
         btnMove4 = new javax.swing.JButton();
-        lblVidaPokemonPJ = new javax.swing.JLabel();
-        lblVidaPokemonCOM = new javax.swing.JLabel();
+        lblPokemon3 = new javax.swing.JLabel();
+        lblPokemon2 = new javax.swing.JLabel();
+        lblPokemon1 = new javax.swing.JLabel();
+        lblPokemon6 = new javax.swing.JLabel();
+        lblPokemon5 = new javax.swing.JLabel();
+        lblPokemon4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(640, 310));
 
-        lblPokemon4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon4MouseClicked(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(102, 0, 204));
+        jPanel1.setMinimumSize(new java.awt.Dimension(621, 456));
+        jPanel1.setLayout(null);
 
-        lblPokemon1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon1MouseClicked(evt);
-            }
-        });
+        lblPokemonRival.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemonRival.setText("asdfasdfasdf");
+        jPanel1.add(lblPokemonRival);
+        lblPokemonRival.setBounds(370, 90, 96, 96);
 
-        lblPokemon2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon2MouseClicked(evt);
-            }
-        });
+        lblPokemonAliado.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemonAliado.setText("asdfasdfasdf");
+        jPanel1.add(lblPokemonAliado);
+        lblPokemonAliado.setBounds(140, 180, 96, 96);
 
-        lblPokemon6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon6MouseClicked(evt);
-            }
-        });
+        lblVidaPokemonPJ.setForeground(new java.awt.Color(0, 0, 0));
+        lblVidaPokemonPJ.setText("asdfasdfasdf");
+        jPanel1.add(lblVidaPokemonPJ);
+        lblVidaPokemonPJ.setBounds(50, 120, 83, 46);
 
-        lblPokemon3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon3MouseClicked(evt);
-            }
-        });
+        lblVidaPokemonCOM.setForeground(new java.awt.Color(0, 0, 0));
+        lblVidaPokemonCOM.setText("asdfasdfasdf");
+        jPanel1.add(lblVidaPokemonCOM);
+        lblVidaPokemonCOM.setBounds(470, 50, 74, 49);
 
-        lblPokemon5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPokemon5MouseClicked(evt);
-            }
-        });
-
+        btnMove1.setForeground(new java.awt.Color(0, 0, 0));
+        btnMove1.setText("asdfasdfasdf");
         btnMove1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMove1ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMove1);
+        btnMove1.setBounds(320, 320, 130, 50);
 
+        btnMove2.setForeground(new java.awt.Color(0, 0, 0));
+        btnMove2.setText("asdfasdfasdf");
         btnMove2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMove2ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMove2);
+        btnMove2.setBounds(320, 380, 130, 50);
 
+        btnMove3.setForeground(new java.awt.Color(0, 0, 0));
+        btnMove3.setText("asdfasdfasdf");
         btnMove3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMove3ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMove3);
+        btnMove3.setBounds(470, 320, 130, 50);
 
+        btnMove4.setForeground(new java.awt.Color(0, 0, 0));
+        btnMove4.setText("asdfasdfasdf");
         btnMove4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMove4ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMove4);
+        btnMove4.setBounds(470, 380, 130, 50);
+
+        lblPokemon3.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon3.setText("asdfasdfasdf");
+        lblPokemon3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon3);
+        lblPokemon3.setBounds(210, 310, 64, 64);
+
+        lblPokemon2.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon2.setText("asdfasdfasdf");
+        lblPokemon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon2);
+        lblPokemon2.setBounds(120, 310, 64, 64);
+
+        lblPokemon1.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon1.setText("asdfasdfasdf");
+        lblPokemon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon1);
+        lblPokemon1.setBounds(20, 310, 64, 64);
+
+        lblPokemon6.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon6.setText("asdfasdfasdf");
+        lblPokemon6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon6MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon6);
+        lblPokemon6.setBounds(210, 380, 64, 64);
+
+        lblPokemon5.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon5.setText("asdfasdfasdf");
+        lblPokemon5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon5MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon5);
+        lblPokemon5.setBounds(120, 380, 64, 64);
+
+        lblPokemon4.setForeground(new java.awt.Color(0, 0, 0));
+        lblPokemon4.setText("asdfasdfasdf");
+        lblPokemon4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPokemon4MouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPokemon4);
+        lblPokemon4.setBounds(20, 380, 64, 64);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/scenary1.jpg"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 10, 620, 290);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblVidaPokemonCOM, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblPokemonRival, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(lblPokemonAliado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblVidaPokemonPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPokemon1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPokemon4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPokemon2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPokemon5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPokemon3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPokemon6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMove1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMove2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMove3, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(btnMove4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(34, 34, 34))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblVidaPokemonCOM, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPokemonRival, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(lblPokemonAliado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblVidaPokemonPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblPokemon1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPokemon2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPokemon3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(btnMove3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(11, 11, 11)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPokemon4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPokemon6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPokemon5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMove2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMove4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnMove1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
         );
 
         pack();
@@ -376,8 +374,7 @@ public class CombatForm extends javax.swing.JFrame {
         btnMove4.setText(equipoPJ.get(index).getMoves().get(3).getName());
     }
 
-    private void calcularDmgRival() {
-        
+    private void calcularDmgRival() {   
         if (pokemonAliado.getAtk() > pokemonRival.getDef()) {
             pokemonRival.setActualHp(pokemonRival.getActualHp() - ((pokemonAliado.getAtk() + 20) - pokemonRival.getDef()));
             if (rivalFainted()) {
@@ -396,7 +393,6 @@ public class CombatForm extends javax.swing.JFrame {
 
         lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
         lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
-
     }
 
     private boolean rivalFainted() {
@@ -434,7 +430,6 @@ public class CombatForm extends javax.swing.JFrame {
 
         lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
         lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
-
     }
 
     private boolean aliadoFainted() {
@@ -457,10 +452,7 @@ public class CombatForm extends javax.swing.JFrame {
         btnMove3.setEnabled(false);
         btnMove4.setEnabled(false);
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -484,8 +476,6 @@ public class CombatForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CombatForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -493,6 +483,8 @@ public class CombatForm extends javax.swing.JFrame {
     private javax.swing.JButton btnMove2;
     private javax.swing.JButton btnMove3;
     private javax.swing.JButton btnMove4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPokemon1;
     private javax.swing.JLabel lblPokemon2;
     private javax.swing.JLabel lblPokemon3;
