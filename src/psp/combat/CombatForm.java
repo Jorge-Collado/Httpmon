@@ -88,8 +88,8 @@ public class CombatForm extends javax.swing.JFrame {
         lblPokemonRival.setIcon(resizeImageIcon(equipoCOM.get(pokemonActual).getFrontSprite(), 96));
         pokemonRival.setActualHp(pokemonRival.getMaxHp());
         
-        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + "/" + pokemonAliado.getMaxHp());
-        lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + "/" + pokemonRival.getMaxHp());
+        lblVidaPokemonPJ.setText(pokemonAliado.getActualHp() + " / " + pokemonAliado.getMaxHp());
+        lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + " / " + pokemonRival.getMaxHp());
     }
 
     private void cambiarPokemon(int index) {
@@ -160,16 +160,25 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemonAliado);
         lblPokemonAliado.setBounds(140, 180, 96, 96);
 
+        lblVidaPokemonPJ.setBackground(new java.awt.Color(204, 204, 204));
+        lblVidaPokemonPJ.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblVidaPokemonPJ.setForeground(new java.awt.Color(0, 0, 0));
         lblVidaPokemonPJ.setText("asdfasdfasdf");
+        lblVidaPokemonPJ.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVidaPokemonPJ.setOpaque(true);
         jPanel1.add(lblVidaPokemonPJ);
-        lblVidaPokemonPJ.setBounds(50, 120, 83, 46);
+        lblVidaPokemonPJ.setBounds(43, 136, 90, 30);
 
+        lblVidaPokemonCOM.setBackground(new java.awt.Color(204, 204, 204));
+        lblVidaPokemonCOM.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblVidaPokemonCOM.setForeground(new java.awt.Color(0, 0, 0));
         lblVidaPokemonCOM.setText("asdfasdfasdf");
+        lblVidaPokemonCOM.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVidaPokemonCOM.setOpaque(true);
         jPanel1.add(lblVidaPokemonCOM);
-        lblVidaPokemonCOM.setBounds(470, 50, 74, 49);
+        lblVidaPokemonCOM.setBounds(454, 69, 90, 30);
 
+        btnMove1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnMove1.setForeground(new java.awt.Color(0, 0, 0));
         btnMove1.setText("asdfasdfasdf");
         btnMove1.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +189,7 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(btnMove1);
         btnMove1.setBounds(320, 320, 130, 50);
 
+        btnMove2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnMove2.setForeground(new java.awt.Color(0, 0, 0));
         btnMove2.setText("asdfasdfasdf");
         btnMove2.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +200,7 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(btnMove2);
         btnMove2.setBounds(320, 380, 130, 50);
 
+        btnMove3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnMove3.setForeground(new java.awt.Color(0, 0, 0));
         btnMove3.setText("asdfasdfasdf");
         btnMove3.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +211,7 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(btnMove3);
         btnMove3.setBounds(470, 320, 130, 50);
 
+        btnMove4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnMove4.setForeground(new java.awt.Color(0, 0, 0));
         btnMove4.setText("asdfasdfasdf");
         btnMove4.addActionListener(new java.awt.event.ActionListener() {
@@ -210,8 +222,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(btnMove4);
         btnMove4.setBounds(470, 380, 130, 50);
 
+        lblPokemon3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon3.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon3.setText("asdfasdfasdf");
         lblPokemon3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon3MouseClicked(evt);
@@ -220,8 +232,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemon3);
         lblPokemon3.setBounds(210, 310, 64, 64);
 
+        lblPokemon2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon2.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon2.setText("asdfasdfasdf");
         lblPokemon2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon2MouseClicked(evt);
@@ -230,8 +242,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemon2);
         lblPokemon2.setBounds(120, 310, 64, 64);
 
+        lblPokemon1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon1.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon1.setText("asdfasdfasdf");
         lblPokemon1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon1MouseClicked(evt);
@@ -240,8 +252,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemon1);
         lblPokemon1.setBounds(20, 310, 64, 64);
 
+        lblPokemon6.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon6.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon6.setText("asdfasdfasdf");
         lblPokemon6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon6MouseClicked(evt);
@@ -250,8 +262,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemon6);
         lblPokemon6.setBounds(210, 380, 64, 64);
 
+        lblPokemon5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon5.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon5.setText("asdfasdfasdf");
         lblPokemon5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon5MouseClicked(evt);
@@ -260,8 +272,8 @@ public class CombatForm extends javax.swing.JFrame {
         jPanel1.add(lblPokemon5);
         lblPokemon5.setBounds(120, 380, 64, 64);
 
+        lblPokemon4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblPokemon4.setForeground(new java.awt.Color(0, 0, 0));
-        lblPokemon4.setText("asdfasdfasdf");
         lblPokemon4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPokemon4MouseClicked(evt);
