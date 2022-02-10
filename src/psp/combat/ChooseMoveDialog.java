@@ -373,21 +373,26 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         try {
             int i = 0;
             while (!xd && i < equipoPJ.size()) {
-
+                CombatPokemon com = new CombatPokemon();
                 CombatPokemon cp = new CombatPokemon();
                 cp.setNombre(equipoPJ.get(i).getName());
+                com.setNombre(equipoPJ.get(i).getName());
                 pedirMoves(i);
                 setMoves(i, cp);
-
+                setMoves(i, com);
                 setStats(i, cp);
+                setStats(i, com);
                 setTypes(i, cp);
+                setTypes(i, com);
                 URL backURL = new URL(equipoPJ.get(i).getSprites().getBackDefault());
                 ImageIcon back = new ImageIcon(backURL);
                 ImageIcon front = new ImageIcon(new URL(equipoPJ.get(i).getSprites().getFrontDefault()));
                 cp.setFrontSprite(front);
                 cp.setBackSprite(back);
+                com.setFrontSprite(front);
+                com.setBackSprite(back);
                 combatTeamPJ.add(cp);
-                combatTeamCOM.add(cp);
+                combatTeamCOM.add(com);
                 i++;
             }
             
