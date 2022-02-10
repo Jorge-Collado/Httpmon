@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -30,6 +33,7 @@ import psp.models.pokemon.Stat;
 public class ChooseMoveDialog extends javax.swing.JFrame {
 
     private ArrayList<Pokemon> equipoPJ;
+    boolean xd = false;
     private int selectedPokemon = 0;
     private List<Moves> movesFirst;
     private List<Moves> movesSecond;
@@ -67,9 +71,15 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     }
 
     private void initUI() {
-        btnHecho.setBackground(Color.YELLOW);
-        btnHecho.setContentAreaFilled(false);
-        btnHecho.setOpaque(true);
+        try {
+            btnHecho.setBackground(Color.YELLOW);
+            btnHecho.setContentAreaFilled(false);
+            btnHecho.setOpaque(true);
+            BufferedImage icon = ImageIO.read(new File("src/psp/assets/frameIcon.png"));
+            this.setIconImage(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(ChooseMoveDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void inicializarListas() {
@@ -88,6 +98,8 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
             provisionalmovesFifth.add(equipoPJ.get(4).getMoves().get(i));
             provisionalmovesSixth.add(equipoPJ.get(5).getMoves().get(i));
         }
+        
+        this.setTitle("Movimientos de: " + equipoPJ.get(0).getName().toUpperCase());
     }
 
     @SuppressWarnings("unchecked")
@@ -150,6 +162,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         btnHecho.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnHecho.setForeground(new java.awt.Color(0, 0, 0));
         btnHecho.setText("Hecho");
+        btnHecho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHechoActionPerformed(evt);
@@ -258,25 +271,6 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         movimientos.add(pk2);
         movimientos.add(pk3);
         movimientos.add(pk4);
-        /*
-        try {
-            for (PokemonMove move : movesFinal) {
-                CloseableHttpClient httpClient = HttpClients.createDefault();
-
-                HttpGet request = new HttpGet(move.getMove().getUrl());
-
-                CloseableHttpResponse response = httpClient.execute(request);
-                HttpEntity entity = response.getEntity();
-                String result = EntityUtils.toString(entity);
-                Object data = ConverterMoves.fromJsonString(result, moveFinal);
-                moveFinal = (Moves) data;
-                if (!moveFinal.getDamageClass().getName().equals("status")) {
-                    movimientos.add(moveFinal);
-                }
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }*/
         return movimientos;
     }
 
@@ -286,36 +280,42 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 provisionalMovesFirst = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 1 -> {
                 movesSecond = new ArrayList();
                 provisionalmovesSecond = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 2 -> {
                 movesThird = new ArrayList();
                 provisionalmovesThird = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 3 -> {
                 movesFourth = new ArrayList();
                 provisionalmovesFourth = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 4 -> {
                 movesFifth = new ArrayList();
                 provisionalmovesFifth = addMoves();
                 selectedPokemon += 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 5 -> {
                 movesSixth = new ArrayList();
                 provisionalmovesSixth = addMoves();
                 selectedPokemon = 0;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
         }
     }//GEN-LAST:event_lblNextMouseClicked
@@ -327,36 +327,42 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 provisionalMovesFirst = addMoves();
                 selectedPokemon = 5;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 1 -> {
                 movesSecond = new ArrayList();
                 provisionalmovesSecond = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 2 -> {
                 movesThird = new ArrayList();
                 provisionalmovesThird = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 3 -> {
                 movesFourth = new ArrayList();
                 provisionalmovesFourth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 4 -> {
                 movesFifth = new ArrayList();
                 provisionalmovesFifth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
             case 5 -> {
                 movesSixth = new ArrayList();
                 provisionalmovesSixth = addMoves();
                 selectedPokemon -= 1;
                 displayPokemon(selectedPokemon);
+                this.setTitle("Movimientos de: " + equipoPJ.get(selectedPokemon).getName().toUpperCase());
             }
         }
     }//GEN-LAST:event_lblBehindMouseClicked
@@ -365,26 +371,35 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
         combatTeamPJ = new ArrayList();
         combatTeamCOM = new ArrayList();
         try {
-            for (int i = 0; i < equipoPJ.size(); i++) {
+            int i = 0;
+            while (!xd && i < equipoPJ.size()) {
+
                 CombatPokemon cp = new CombatPokemon();
                 cp.setNombre(equipoPJ.get(i).getName());
                 pedirMoves(i);
                 setMoves(i, cp);
+
                 setStats(i, cp);
                 setTypes(i, cp);
-                BufferedImage back = ImageIO.read(new URL(equipoPJ.get(i).getSprites().getBackDefault()));
-                BufferedImage front = ImageIO.read(new URL(equipoPJ.get(i).getSprites().getFrontDefault()));
+                URL backURL = new URL(equipoPJ.get(i).getSprites().getBackDefault());
+                ImageIcon back = new ImageIcon(backURL);
+                ImageIcon front = new ImageIcon(new URL(equipoPJ.get(i).getSprites().getFrontDefault()));
                 cp.setFrontSprite(front);
                 cp.setBackSprite(back);
                 combatTeamPJ.add(cp);
                 combatTeamCOM.add(cp);
+                i++;
             }
+            
+            if (!xd) {
+                CombatForm cf = new CombatForm(combatTeamPJ, combatTeamCOM);
+                cf.setVisible(true);
+            }
+            
+            xd = false;
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-
-        CombatForm cf = new CombatForm(combatTeamPJ, combatTeamCOM);
-        cf.setVisible(true);
     }//GEN-LAST:event_btnHechoActionPerformed
 
     private void lblNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseEntered
@@ -410,7 +425,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
     private void pedirMoves(int i) {
         switch (i) {
             case 0 -> {
-                movesFirst = new ArrayList(); 
+                movesFirst = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalMovesFirst) {
@@ -432,7 +447,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 }
             }
             case 1 -> {
-                movesSecond = new ArrayList(); 
+                movesSecond = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalmovesSecond) {
@@ -454,7 +469,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 }
             }
             case 2 -> {
-                movesThird = new ArrayList(); 
+                movesThird = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalmovesThird) {
@@ -476,7 +491,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 }
             }
             case 3 -> {
-                movesFourth = new ArrayList(); 
+                movesFourth = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalmovesFourth) {
@@ -498,7 +513,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 }
             }
             case 4 -> {
-                movesFifth = new ArrayList(); 
+                movesFifth = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalmovesFifth) {
@@ -520,7 +535,7 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 }
             }
             case 5 -> {
-                movesSixth = new ArrayList(); 
+                movesSixth = new ArrayList();
                 Moves moveFinal = new Moves();
                 try {
                     for (PokemonMove move : provisionalmovesSixth) {
@@ -540,52 +555,104 @@ public class ChooseMoveDialog extends javax.swing.JFrame {
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
-                
+
             }
-        }
-    }
-
-    private void requestMoves(List<Moves> lista, List<PokemonMove> provisional) {
-        Moves moveFinal = new Moves();
-        try {
-            for (PokemonMove move : provisional) {
-                CloseableHttpClient httpClient = HttpClients.createDefault();
-
-                HttpGet request = new HttpGet(move.getMove().getUrl());
-
-                CloseableHttpResponse response = httpClient.execute(request);
-                HttpEntity entity = response.getEntity();
-                String result = EntityUtils.toString(entity);
-                Object data = ConverterMoves.fromJsonString(result, moveFinal);
-                moveFinal = (Moves) data;
-                if (!moveFinal.getDamageClass().getName().equals("status")) {
-                    lista.add(moveFinal);
-                }
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
     }
 
     private void setMoves(int i, CombatPokemon cp) {
         switch (i) {
             case 0 -> {
-                cp.setMoves(movesFirst);
+
+                for (Moves m : movesFirst) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesFirst);
+                }
             }
             case 1 -> {
-                cp.setMoves(movesSecond);
+                for (Moves m : movesSecond) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesSecond);
+                }
+
             }
             case 2 -> {
-                cp.setMoves(movesThird);
+                for (Moves m : movesThird) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesThird);
+                }
             }
             case 3 -> {
-                cp.setMoves(movesFourth);
+                for (Moves m : movesFourth) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesFourth);
+                }
             }
             case 4 -> {
-                cp.setMoves(movesFifth);
+                for (Moves m : movesFifth) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesFifth);
+                }
             }
             case 5 -> {
-                cp.setMoves(movesSixth);
+                for (Moves m : movesSixth) {
+                    if (m.getDamageClass().getName().equals("status")) {
+                        xd = true;
+                    }
+                }
+                if (xd) {
+                    ErrorDialog ed = new ErrorDialog(this, true);
+                    ed.setVisible(true);
+                    
+                    return;
+                } else {
+                    cp.setMoves(movesSixth);
+                }
             }
         }
     }

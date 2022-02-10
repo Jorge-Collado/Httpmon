@@ -251,7 +251,7 @@ public class PokemonDialog extends javax.swing.JDialog {
             lblName.setText(String.format("%s #%d", pokemon.getName().toUpperCase(), pokemon.getId()));
             btnAddEquipo.setBackground(Color.YELLOW);
             btnAddEquipo.setContentAreaFilled(false);
-            btnAddEquipo.setOpaque(true);
+            btnAddEquipo.setOpaque(true);            
         } catch (MalformedURLException ex) {
             Logger.getLogger(PokemonDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -372,7 +372,7 @@ public class PokemonDialog extends javax.swing.JDialog {
         txtInfo.setEditable(false);
         txtInfo.setBackground(new java.awt.Color(153, 0, 255));
         txtInfo.setColumns(20);
-        txtInfo.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        txtInfo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         txtInfo.setForeground(new java.awt.Color(255, 255, 255));
         txtInfo.setLineWrap(true);
         txtInfo.setRows(5);
@@ -530,8 +530,8 @@ public class PokemonDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipoActionPerformed
-        ArrayList<Pokemon> equipoPJ = mainForm.getEquipoPJ();
-        if (equipoPJ.size() < 6) {
+        int equipoPJSize = mainForm.getContador();
+        if (equipoPJSize < 6) {
             mainForm.teElijoATiDialog(pokemon, icono);
             this.setVisible(false);
         } else {

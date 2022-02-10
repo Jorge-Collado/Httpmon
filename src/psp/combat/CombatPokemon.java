@@ -27,8 +27,8 @@ public class CombatPokemon {
     private int spAtk;
     private int spDef;
     private int spd;
-    private BufferedImage frontsprite;
-    private BufferedImage backsprite;
+    private ImageIcon frontsprite;
+    private ImageIcon backsprite;
     private boolean fainted = false;
 
     public CombatPokemon(String nombre, String tipo1, String tipo2, List<Moves> moves, int maxHp, int atk, int def, int spAtk, int spDef, int spd) {
@@ -149,19 +149,19 @@ public class CombatPokemon {
         this.spd = spd;
     }
 
-    public BufferedImage getFrontSprite() {
+    public ImageIcon getFrontSprite() {
         return frontsprite;
     }
 
-    public void setFrontSprite(BufferedImage frontsprite) {
+    public void setFrontSprite(ImageIcon frontsprite) {
         this.frontsprite = frontsprite;
     }
 
-    public BufferedImage getBackSprite() {
+    public ImageIcon getBackSprite() {
         return backsprite;
     }
 
-    public void setBackSprite(BufferedImage backsprite) {
+    public void setBackSprite(ImageIcon backsprite) {
         this.backsprite = backsprite;
     }
 

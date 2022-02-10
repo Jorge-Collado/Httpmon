@@ -45,6 +45,7 @@ public class MainForm extends javax.swing.JFrame {
     ArrayList<JLabel> cajaPokemon = new ArrayList<>();
     HashMap<String, String> tiposMap;
     int actualPage = 0;
+    int contador = 0;
     ArrayList<Pokemon> equipoPJ;
     ArrayList<Boolean> cajaOcupada = new ArrayList<>();
 
@@ -56,12 +57,12 @@ public class MainForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public ArrayList<Pokemon> getEquipoPJ() {
-        return equipoPJ;
+    public int getContador() {
+        return contador;
     }
 
-    public void setEquipoPJ(ArrayList<Pokemon> equipoPJ) {
-        this.equipoPJ = equipoPJ;
+    public void setContador(int contador) {
+        this.contador = contador;
     }
 
     private void loadUI() {
@@ -104,6 +105,15 @@ public class MainForm extends javax.swing.JFrame {
             cajaOcupada.add(false);
             cajaOcupada.add(false);
             cajaOcupada.add(false);
+            
+            equipoPJ = new ArrayList<>();
+            equipoPJ.add(null);
+            equipoPJ.add(null);
+            equipoPJ.add(null);
+            equipoPJ.add(null);
+            equipoPJ.add(null);
+            equipoPJ.add(null);
+            
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,6 +229,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 0, 255));
         jPanel2.setForeground(new java.awt.Color(51, 51, 51));
 
+        lblPokeBox1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,6 +244,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        lblPokeBox2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,8 +257,12 @@ public class MainForm extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblPokeBox2MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPokeBox2MousePressed(evt);
+            }
         });
 
+        lblPokeBox5.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,8 +275,12 @@ public class MainForm extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblPokeBox5MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPokeBox1MousePressed(evt);
+            }
         });
 
+        lblPokeBox3.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,8 +293,12 @@ public class MainForm extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblPokeBox3MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPokeBox1MousePressed(evt);
+            }
         });
 
+        lblPokeBox6.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -289,6 +313,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        lblPokeBox4.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblPokeBox4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psp/assets/pokeball96.jpg"))); // NOI18N
         lblPokeBox4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPokeBox4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,6 +325,9 @@ public class MainForm extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblPokeBox4MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPokeBox1MousePressed(evt);
             }
         });
 
@@ -389,7 +417,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(70, 70, 70)
                 .addGroup(paneDescriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(lblPokedexImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPokedexName, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                    .addComponent(lblPokedexName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paneTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64))
         );
@@ -405,7 +433,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        btnNextPage.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
+        btnNextPage.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnNextPage.setText(">");
         buttonGroup1.add(btnNextPage);
         btnNextPage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -422,7 +450,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnPreviousPage.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
+        btnPreviousPage.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnPreviousPage.setText("<");
         buttonGroup1.add(btnPreviousPage);
         btnPreviousPage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -445,7 +473,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel1.setText("HTTPkmon");
 
         txtBuscador.setBackground(new java.awt.Color(153, 0, 255));
-        txtBuscador.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtBuscador.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         txtBuscador.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscador.setToolTipText("Busca un Pokémon por su nombre exacto o su número de la pokédex");
         txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -454,7 +482,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnBuscar.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        btnBuscar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         buttonGroup1.add(btnBuscar);
         btnBuscar.setOpaque(false);
@@ -472,7 +500,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        lblError.setFont(new java.awt.Font("Eras Bold ITC", 0, 12)); // NOI18N
+        lblError.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setText("No se ha encontrado el Pokémon especificado.");
 
@@ -494,7 +522,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        lblTeamSize.setFont(new java.awt.Font("Eras Bold ITC", 0, 14)); // NOI18N
+        lblTeamSize.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lblTeamSize.setForeground(new java.awt.Color(255, 255, 255));
         lblTeamSize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -528,10 +556,12 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(paneDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneContentPaneLayout.createSequentialGroup()
+                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblTeamSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkTeamSelector)
                     .addComponent(btnFight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -543,9 +573,10 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(paneContentPaneLayout.createSequentialGroup()
-                        .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtBuscador))
+                        .addGap(6, 6, 6)
+                        .addGroup(paneContentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblError))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -592,7 +623,6 @@ public class MainForm extends javax.swing.JFrame {
         loadPokemons(0, 16);
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         lblTeamSize.setVisible(false);
-        equipoPJ = new ArrayList<>();
     }//GEN-LAST:event_formWindowOpened
 
     private void loadPokemons(int offset, int limit) {
@@ -709,9 +739,10 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnFightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFightActionPerformed
         if (equipoPJ.size() == 6) {
+            lblError.setVisible(false);
+            lblTeamSize.setVisible(false);
             ChooseMoveDialog cmd = new ChooseMoveDialog(equipoPJ);
             cmd.setVisible(true);
-            lblError.setVisible(false);
         } else {
             lblTeamSize.setVisible(true);
             lblTeamSize.setText("El equipo debe ser de 6");
@@ -760,11 +791,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox1MouseClicked
         try {
-            if (cajaOcupada.get(0)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox1.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(0);
-                cajaOcupada.set(0, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(0)) {
+                    cajaOcupada.set(0, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox1.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(0, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -773,11 +807,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox2MouseClicked
         try {
-            if (cajaOcupada.get(1)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox2.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(1);
-                cajaOcupada.set(1, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(1)) {
+                    cajaOcupada.set(1, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox2.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(1, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -786,11 +823,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox3MouseClicked
         try {
-            if (cajaOcupada.get(2)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox3.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(2);
-                cajaOcupada.set(2, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(2)) {
+                    cajaOcupada.set(2, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox3.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(2, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -799,11 +839,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox4MouseClicked
         try {
-            if (cajaOcupada.get(3)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox4.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(3);
-                cajaOcupada.set(3, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(3)) {
+                    cajaOcupada.set(3, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox4.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(3, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -812,11 +855,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox5MouseClicked
         try {
-            if (cajaOcupada.get(4)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox5.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(4);
-                cajaOcupada.set(4, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(4)) {
+                    cajaOcupada.set(4, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox5.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(4, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -825,11 +871,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblPokeBox6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox6MouseClicked
         try {
-            if (cajaOcupada.get(5)) {
-                BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
-                lblPokeBox6.setIcon(resizImageIcon(img, 96));
-                equipoPJ.remove(5);
-                cajaOcupada.set(5, false);
+            if (evt.getClickCount() <= 1) {
+                if (cajaOcupada.get(5)) {
+                    cajaOcupada.set(5, false);
+                    BufferedImage img = ImageIO.read(new File("src/psp/assets/pokeball96.jpg"));
+                    lblPokeBox6.setIcon(resizImageIcon(img, 96));
+                    equipoPJ.set(5, null);
+                    contador--;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -895,6 +944,14 @@ public class MainForm extends javax.swing.JFrame {
     private void lblPokeBox6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox6MouseExited
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblPokeBox6MouseExited
+
+    private void lblPokeBox2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPokeBox2MousePressed
+
+    private void lblPokeBox1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokeBox1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPokeBox1MousePressed
 
     private Pokemon searchPokemon() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -974,8 +1031,16 @@ public class MainForm extends javax.swing.JFrame {
     private void teElijoATi(MouseEvent evt) {
         if (evt.getSource() instanceof JLabel) {
             JLabel label = (JLabel) evt.getSource();
-            if (equipoPJ.size() < 6) {
-                equipoPJ.add(pokemons.get(Integer.parseInt(label.getText())));
+            
+            if (contador < 6) {
+                for(int i = 0; i < equipoPJ.size(); i++) {
+                    if(equipoPJ.get(i) == null) {
+                        equipoPJ.set(i, pokemons.get(Integer.parseInt(label.getText())));
+                        contador++;
+                        break;
+                    }
+                }
+                
                 for (int i = 0; i < cajaOcupada.size(); i++) {
                     if (cajaOcupada.get(i) == false) {
                         cajaPokemon.get(i).setIcon(icons96.get(Integer.parseInt(label.getText())));
@@ -987,12 +1052,20 @@ public class MainForm extends javax.swing.JFrame {
                 repaint();
             } else {
                 lblTeamSize.setVisible(true);
+                lblTeamSize.setText("Ya tienes 6 pokemons en tu equipo");
             }
         }
     }
 
     public void teElijoATiDialog(Pokemon pokemon, ImageIcon icon) {
-        equipoPJ.add(pokemon);
+        for(int i = 0; i < equipoPJ.size(); i++) {
+            if(equipoPJ.get(i) == null && contador < 6) {
+                equipoPJ.set(i, pokemon);
+                contador++;
+                break;
+            }
+        }
+        
         for (int i = 0; i < cajaOcupada.size(); i++) {
             if (cajaOcupada.get(i) == false) {
                 cajaPokemon.get(i).setIcon(icon);
