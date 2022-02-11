@@ -52,10 +52,10 @@ public class CombatForm extends javax.swing.JFrame {
             initComponents();
             this.equipoPJ = equipoPJ;
             this.equipoCOM = equipoCOM;
-            
+
             lblVidaPokemonPJ.setForeground(new Color(0, 153, 0));
             lblVidaPokemonCOM.setForeground(new Color(0, 153, 0));
-            
+
             iniciarCombate(pokemonActual);
             this.setLocationRelativeTo(null);
             this.setTitle("TU PADRE DESPUÉS DE PERDER EL MADRID");
@@ -122,7 +122,7 @@ public class CombatForm extends javax.swing.JFrame {
     }
 
     private ImageIcon resizeImageIcon(ImageIcon icon, int size) {
-        Image image = icon.getImage();  
+        Image image = icon.getImage();
         Image newimg = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         return icon;
@@ -369,19 +369,35 @@ public class CombatForm extends javax.swing.JFrame {
 
     private void btnMove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove1ActionPerformed
         calcularDmgRival();
+        comprobarResultado();
     }//GEN-LAST:event_btnMove1ActionPerformed
 
     private void btnMove3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove3ActionPerformed
         calcularDmgRival();
+        comprobarResultado();
     }//GEN-LAST:event_btnMove3ActionPerformed
 
     private void btnMove2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove2ActionPerformed
         calcularDmgRival();
+        comprobarResultado();
     }//GEN-LAST:event_btnMove2ActionPerformed
 
     private void btnMove4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove4ActionPerformed
         calcularDmgRival();
+        comprobarResultado();
     }//GEN-LAST:event_btnMove4ActionPerformed
+
+    private void comprobarResultado() {
+        int contador = 0;
+        for(int i = 0; i < equipoPJ.size(); i++) {
+            if(equipoPJ.get(0).getActualHp() < 1) contador++;
+        }
+        if (contador == 6) {
+            FinalCombatDialog fcd = new FinalCombatDialog(this, true);
+            fcd.setVisible(true);
+            dispose();
+        }
+    }
 
     private void lblPokemon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPokemon1MouseClicked
         if (equipoPJ.get(0).getActualHp() > 0) {
@@ -497,6 +513,9 @@ public class CombatForm extends javax.swing.JFrame {
             }
             lblVidaPokemonCOM.setText(pokemonRival.getActualHp() + " / " + pokemonRival.getMaxHp());
         } else {
+            FinalCombatDialog fcd = new FinalCombatDialog(this, true);
+            fcd.setWin(true);
+            fcd.setVisible(true);
             dispose();
         }
     }
