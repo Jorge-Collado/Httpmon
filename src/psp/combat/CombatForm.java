@@ -481,7 +481,7 @@ public class CombatForm extends javax.swing.JFrame {
     }
 
     private void cambiarPokemonRival() {
-        if (pokemonActual < equipoCOM.size()) {
+        if (pokemonActual < (equipoCOM.size() - 1)) {
             pokemonActual += 1;
             setPokemonRival(equipoCOM.get(pokemonActual));
             lblPokemonRival.setIcon(resizeImageIcon(pokemonRival.getFrontSprite(), 96));
